@@ -1,0 +1,30 @@
+<section class="container nn-hero">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-6">
+      <h1 class="nn-hero-title">
+        <span class="d-block text-dark">{{ 'HERO.TITLE_1' | translate }}</span>
+        <span class="d-block text-dark">{{ 'HERO.TITLE_2' | translate }}</span>
+        <span class="d-block text-success">{{ 'HERO.TITLE_3' | translate }}</span>
+      </h1>
+      <p class="nn-hero-sub mt-3">{{ 'HERO.SUBTITLE' | translate }}</p>
+      <a routerLink="/complaints/new" class="btn nn-btn-primary btn-lg mt-3 px-4 color-white">
+        <i class="bi bi-megaphone-fill me-2"></i>{{ 'HERO.CTA' | translate }}
+        <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="nn-hero-image">
+        <div class="nn-hero-blob">
+          <img
+            src="../../../../assets/images/hero-city.jpg"
+            appImageFallback
+            alt="City skyline with trees"
+            class="nn-hero-photo"
+          />
+        </div>
+        <p class="nn-hero-tagline">{{ 'HERO.TAGLINE' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</section>

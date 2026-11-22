@@ -1,1 +1,308 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+// Design tokens
+$green: #1b7a3e;
+$green-dark: #0f5c2c;
+$green-light: #e8f5ec;
+$ink: #17313f;
+$muted: #5d6b72;
+$border: #dfe9e2;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
+  color: $ink;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, #e3f4e8 0%, transparent 40%),
+    linear-gradient(180deg, #f7fbf8 0%, #eef7f1 100%);
+  background-attachment: fixed;
+}
+
+// Buttons
+.nn-btn-primary {
+  background: linear-gradient(135deg, $green, $green-dark);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+
+  &:hover {
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(27, 122, 62, 0.25);
+    transform: translateY(-1px);
+  }
+}
+
+// Navbar
+.nn-navbar {
+  .brand-text {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.1;
+    color: $green-dark;
+  }
+
+  .nav-link {
+    color: $ink;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 6px;
+
+    &.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: $green;
+      border-radius: 2px;
+    }
+  }
+}
+
+.nn-lang-dropdown .dropdown-item.active {
+  background-color: $green;
+}
+
+// Hero
+.nn-hero {
+  padding-top: 20px;
+  padding-bottom: 40px;
+
+  .nn-hero-title {
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+  }
+
+  .nn-hero-sub {
+    color: $muted;
+    font-size: 17px;
+    max-width: 440px;
+  }
+
+  .nn-hero-image {
+    position: relative;
+    height: 380px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .nn-hero-blob {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #cfe9d7 0%, #7fc497 50%, #2e8b57 100%);
+  }
+
+  .nn-hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .nn-hero-tagline {
+    position: relative;
+    z-index: 2;
+    margin: 0 20px 30px 0;
+    color: #fff;
+    font-family: 'Brush Script MT', 'Segoe Script', cursive;
+    font-size: 30px;
+    text-align: right;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+}
+
+// Cards
+.nn-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid $border;
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 6px 18px rgba(20, 60, 35, 0.05);
+}
+
+.nn-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.nn-view-all {
+  color: $green;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+// How it works
+.nn-step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: $green;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+}
+
+.nn-step-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: $green;
+}
+
+.nn-step-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nn-step-desc {
+  font-size: 12px;
+  color: $muted;
+  max-width: 130px;
+}
+
+.nn-step-arrow {
+  position: absolute;
+  top: 40px;
+  color: $green;
+  font-size: 18px;
+  margin-left: 84px;
+}
+
+// Categories
+.nn-category {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 18px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.nn-category-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.cat-roads { color: #8a6d3b; }
+.cat-light { color: #e0a800; }
+.cat-garbage { color: #2e7d32; }
+.cat-water { color: #1e88e5; }
+.cat-drain { color: #1565c0; }
+.cat-others { color: $muted; }
+
+// Recently resolved
+.nn-resolved {
+  background: $green-light;
+  border-radius: 16px;
+  padding: 18px 24px 20px;
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
+
+.nn-resolved-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  height: 100%;
+}
+
+.nn-resolved-img {
+  width: 110px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.nn-resolved-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nn-badge {
+  background: #d7f0df;
+  color: $green;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+// Footer
+.nn-footer {
+  background: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid $border;
+  font-size: 14px;
+}
+
+.nn-footer-link {
+  color: $muted;
+  text-decoration: none;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+.nn-social {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: $green;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+// Responsive
+@media (max-width: 991px) {
+  .nn-hero .nn-hero-title {
+    font-size: 42px;
+  }
+
+  .nn-hero .nn-hero-image {
+    height: 300px;
+  }
+
+  .nn-step-arrow {
+    display: none;
+  }
+}
+

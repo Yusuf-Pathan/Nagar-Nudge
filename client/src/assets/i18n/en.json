@@ -1,0 +1,57 @@
+{
+  "NAV": {
+    "HOME": "Home",
+    "HOW_IT_WORKS": "How It Works",
+    "TRACK": "Track Complaint",
+    "LOGIN_SIGNUP": "Login / Sign Up",
+    "LOGOUT": "Logout"
+  },
+  "HERO": {
+    "TITLE_1": "Your City.",
+    "TITLE_2": "Your Voice.",
+    "TITLE_3": "Your Change.",
+    "SUBTITLE": "Report civic issues, track their status, and help make our city better together.",
+    "CTA": "Raise a Complaint",
+    "TAGLINE": "A Cleaner, Greener City"
+  },
+  "HOW_IT_WORKS": {
+    "TITLE": "How It Works?",
+    "STEPS": {
+      "REPORT": {
+        "TITLE": "Report",
+        "DESC": "Share the issue with photos or videos"
+      },
+      "TRACK": {
+        "TITLE": "Track",
+        "DESC": "Know the status in real-time"
+      },
+      "RESOLVE": {
+        "TITLE": "Resolve",
+        "DESC": "See the issue getting resolved"
+      }
+    }
+  },
+  "CATEGORIES": {
+    "TITLE": "Categories",
+    "VIEW_ALL": "View All",
+    "ROADS": "Roads",
+    "STREETLIGHTS": "Streetlights",
+    "GARBAGE": "Garbage",
+    "WATER": "Water Supply",
+    "DRAINAGE": "Drainage",
+    "OTHERS": "Others"
+  },
+  "RESOLVED": {
+    "TITLE": "Recently Resolved",
+    "VIEW_ALL": "View All",
+    "RESOLVED": "Resolved",
+    "DAYS_AGO": "{{count}} days ago"
+  },
+  "FOOTER": {
+    "TAGLINE": "Building a cleaner, safer and smarter city together.",
+    "ABOUT": "About Us",
+    "HELP": "Help",
+    "CONTACT": "Contact",
+    "RIGHTS": "All rights reserved."
+  }
+}

@@ -1,0 +1,30 @@
+<section class="container" id="recently-resolved">
+  <div class="nn-resolved">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="nn-card-title mb-0">{{ 'RESOLVED.TITLE' | translate }}</h3>
+      <!-- <a href="#" class="nn-view-all">{{ 'RESOLVED.VIEW_ALL' | translate }} <i class="bi bi-arrow-right"></i></a> -->
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4" *ngFor="let item of resolved$ | async">
+        <div class="nn-resolved-item d-flex align-items-center gap-3">
+          <img
+            [src]="item.imageUrl"
+            [alt]="item.title"
+            appImageFallback
+            class="nn-resolved-img"
+          />
+          <div>
+            <h5 class="nn-resolved-title mb-2">{{ item.title | truncate: 30 }}</h5>
+            <div class="d-flex align-items-center gap-2">
+              <span class="nn-badge">{{ 'RESOLVED.RESOLVED' | translate }}</span>
+              <small class="text-secondary">
+                {{ 'RESOLVED.DAYS_AGO' | translate: { count: item.daysAgo } }}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

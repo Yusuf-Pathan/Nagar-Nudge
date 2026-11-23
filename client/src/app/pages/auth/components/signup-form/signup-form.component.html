@@ -1,0 +1,79 @@
+<h3 class="fw-bold mb-1">{{ 'AUTH.SIGNUP.TITLE' | translate }}</h3>
+<p class="text-secondary small mb-4">{{ 'AUTH.SIGNUP.SUBTITLE' | translate }}</p>
+
+<div *ngIf="errorMessage" class="alert alert-danger py-2 small">{{ errorMessage }}</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+  <!-- Name -->
+  <div class="input-group nn-input mb-1">
+    <span class="input-group-text"><i class="bi bi-person"></i></span>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="name"
+      autocomplete="name"
+      [placeholder]="'AUTH.SIGNUP.NAME' | translate"
+      [class.is-invalid]="fieldError('name')"
+    />
+  </div>
+  <small *ngIf="fieldError('name') as key" class="text-danger d-block mb-2">{{ key | translate }}</small>
+
+  <!-- Mobile -->
+  <div class="input-group nn-input mb-1 mt-2">
+    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+    <input
+      type="tel"
+      class="form-control"
+      formControlName="mobile"
+      autocomplete="tel"
+      maxlength="10"
+      [placeholder]="'AUTH.SIGNUP.MOBILE' | translate"
+      [class.is-invalid]="fieldError('mobile')"
+    />
+  </div>
+  <small *ngIf="fieldError('mobile') as key" class="text-danger d-block mb-2">{{ key | translate }}</small>
+
+  <!-- Email -->
+  <div class="input-group nn-input mb-1 mt-2">
+    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+    <input
+      type="email"
+      class="form-control"
+      formControlName="email"
+      autocomplete="email"
+      [placeholder]="'AUTH.SIGNUP.EMAIL' | translate"
+      [class.is-invalid]="fieldError('email')"
+    />
+  </div>
+  <small *ngIf="fieldError('email') as key" class="text-danger d-block mb-2">{{ key | translate }}</small>
+
+  <!-- Password -->
+  <div class="input-group nn-input mb-1 mt-2">
+    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      class="form-control"
+      formControlName="password"
+      autocomplete="new-password"
+      [placeholder]="'AUTH.SIGNUP.PASSWORD' | translate"
+      [class.is-invalid]="fieldError('password')"
+    />
+    <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()" [attr.aria-label]="'Toggle password'">
+      <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+    </button>
+  </div>
+  <small *ngIf="fieldError('password') as key" class="text-danger d-block mb-2">{{ key | translate }}</small>
+
+  <button type="submit" class="btn nn-btn-primary w-100 py-2 mt-4" [disabled]="loading">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+    {{ 'AUTH.SIGNUP.SUBMIT' | translate }}
+  </button>
+</form>
+
+<p class="text-center small mt-4 mb-0">
+  {{ 'AUTH.SIGNUP.HAVE_ACCOUNT' | translate }}
+  <a class="nn-link fw-semibold" role="button" (click)="switchToLogin.emit()">
+    {{ 'AUTH.SIGNUP.GO_LOGIN' | translate }}
+  </a>
+</p>

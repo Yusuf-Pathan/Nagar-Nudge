@@ -1,0 +1,16 @@
+<div class="nn-card h-100" id="how-it-works">
+  <h3 class="nn-card-title">{{ 'HOW_IT_WORKS.TITLE' | translate }}</h3>
+
+  <div class="row text-center position-relative">
+    <div class="steps-line"></div>
+    <div class="col" *ngFor="let step of steps; let last = last">
+      <span class="nn-step-badge">{{ step.number }}</span>
+      <div class="nn-step-icon mx-auto">
+        <i class="bi {{ step.icon }}"></i>
+      </div>
+      <h4 class="nn-step-title mt-2">{{ step.titleKey | translate }}</h4>
+      <p class="nn-step-desc mx-auto">{{ step.descKey | translate }}</p>
+      <i *ngIf="!last" class="bi bi-arrow-right nn-step-arrow"></i>
+    </div>
+  </div>
+</div>

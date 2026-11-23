@@ -1,0 +1,70 @@
+$green: #1b7a3e;
+$green-dark: #0f5c2c;
+
+.nn-auth {
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+.nn-auth-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(20, 60, 35, 0.12);
+}
+
+.nn-auth-banner {
+  position: relative;
+  min-height: 560px;
+  padding: 40px;
+  color: #fff;
+  background: url('/assets/images/hero-city.jpg') center / cover no-repeat;
+
+  // Green overlay so the text stays readable
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 92, 44, 0.78) 0%, rgba(27, 122, 62, 0.88) 100%);
+  }
+}
+
+.nn-auth-brand {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.nn-auth-tagline {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.nn-auth-points {
+  font-size: 15px;
+
+  i {
+    font-size: 18px;
+    color: #bff0cf;
+  }
+}
+
+.nn-auth-tabs {
+  border-bottom: 1px solid #dfe9e2;
+
+  .nav-link {
+    color: #5d6b72;
+    font-weight: 600;
+    border: none;
+    background: none;
+    padding: 10px 24px;
+    cursor: pointer;
+
+    &.active {
+      color: $green;
+      border-bottom: 3px solid $green;
+    }
+  }
+}

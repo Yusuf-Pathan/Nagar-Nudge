@@ -1,0 +1,46 @@
+<div
+  class="nn-dropzone"
+  [class.dragging]="dragging"
+  [class.disabled]="disabled"
+  role="button"
+  tabindex="0"
+  (click)="fileInput.click()"
+  (keydown.enter)="fileInput.click()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="dragging = false"
+  (drop)="onDrop($event)"
+>
+  <input
+    #fileInput
+    type="file"
+    class="d-none"
+    multiple
+    [accept]="acceptAttr"
+    [disabled]="disabled"
+    (change)="onFiles(fileInput.files); fileInput.value = ''"
+  />
+  <i class="bi bi-cloud-arrow-up nn-drop-icon"></i>
+  <p class="mb-1 small">
+    {{ 'UPLOAD.DROP' | translate }}<br />
+    <span class="text-secondary">{{ 'UPLOAD.OR' | translate }}</span><br />
+    <span class="nn-link fw-semibold">{{ 'UPLOAD.BROWSE' | translate }}</span>
+  </p>
+  <small class="text-secondary">{{ 'UPLOAD.SUPPORTS' | translate: { size: maxSizeMb } }}</small>
+</div>
+
+<div *ngIf="previews.length" class="nn-preview-grid mt-3">
+  <div class="nn-preview" *ngFor="let p of previews; let i = index">
+    <video *ngIf="p.isVideo" [src]="p.url" muted></video>
+    <img *ngIf="!p.isVideo" [src]="p.url" [alt]="p.file.name" />
+    <button
+      type="button"
+      class="nn-preview-remove"
+      aria-label="Remove file"
+      (click)="$event.stopPropagation(); remove(i)"
+    >
+      <i class="bi bi-x"></i>
+    </button>
+  </div>
+</div>
+
+<small *ngIf="errorKey" class="text-danger d-block mt-2">{{ errorKey | translate: { size: maxSizeMb, count: maxFiles } }}</small>

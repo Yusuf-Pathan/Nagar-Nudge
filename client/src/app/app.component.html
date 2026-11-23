@@ -1,7 +1,11 @@
 <div class="main-wrapper">
-  <app-header></app-header>
+  <ng-container *ngIf="!isAppArea">
+    <app-header></app-header>
+  </ng-container>
   <div class="auto-scroll-body-wrapper">
     <router-outlet></router-outlet>
   </div>
-  <app-footer></app-footer>
+  <ng-container>
+    <app-footer></app-footer>
+  </ng-container>
 </div>

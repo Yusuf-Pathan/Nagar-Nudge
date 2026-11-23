@@ -1,0 +1,100 @@
+<div class="nn-raise">
+  <h2 class="fw-bold mb-1">{{ 'RAISE.TITLE' | translate }}</h2>
+  <p class="text-secondary mb-4">{{ 'RAISE.SUBTITLE' | translate }}</p>
+
+  <div *ngIf="successMessage" class="alert alert-success py-2 small">
+    {{ successMessage | translate }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger py-2 small">{{ errorMessage }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+    <!-- Category -->
+    <h6 class="fw-bold mb-3">{{ 'RAISE.SELECT_CATEGORY' | translate }}</h6>
+    <div class="row row-cols-3 row-cols-md-6 g-3 mb-2">
+      <div class="col" *ngFor="let cat of categories">
+        <button
+          type="button"
+          class="nn-cat-tile w-100"
+          [class.active]="selectedCategory === cat.key"
+          [attr.aria-pressed]="selectedCategory === cat.key"
+          (click)="selectCategory(cat.key)"
+        >
+          <span *ngIf="selectedCategory === cat.key" class="nn-tile-check">
+            <i class="bi bi-check"></i>
+          </span>
+          <i class="bi {{ cat.icon }} nn-cat-icon {{ cat.colorClass }}"></i>
+          <span class="small fw-semibold">{{ 'CATEGORIES.' + cat.key | translate }}</span>
+        </button>
+      </div>
+    </div>
+    <small *ngIf="form.controls.category.touched && form.controls.category.invalid" class="text-danger d-block mb-3">
+      {{ 'RAISE.ERRORS.CATEGORY_REQUIRED' | translate }}
+    </small>
+
+    <div class="row g-4 mt-1">
+      <div class="col-lg-7">
+
+        <!-- Title -->
+        <label for="complaintTitle" class="form-label fw-semibold small">
+          {{ 'RAISE.TITLE_LABEL' | translate }} <span class="text-danger">*</span>
+        </label>
+        <input
+          id="complaintTitle"
+          type="text"
+          class="form-control nn-field"
+          formControlName="title"
+          [placeholder]="'RAISE.TITLE_PLACEHOLDER' | translate"
+          [class.is-invalid]="form.controls.title.touched && form.controls.title.invalid"
+        />
+        <small *ngIf="form.controls.title.touched && form.controls.title.errors?.['required']" class="text-danger d-block mt-1">
+          {{ 'RAISE.ERRORS.TITLE_REQUIRED' | translate }}
+        </small>
+        <small *ngIf="form.controls.title.touched && form.controls.title.errors?.['minlength']" class="text-danger d-block mt-1">
+          {{ 'RAISE.ERRORS.TITLE_MIN' | translate }}
+        </small>
+
+        <!-- Description (optional) -->
+        <label for="complaintDesc" class="form-label fw-semibold small mt-3">
+          {{ 'RAISE.DESC_LABEL' | translate }}
+          <span class="text-secondary fw-normal">({{ 'RAISE.OPTIONAL' | translate }})</span>
+        </label>
+        <textarea
+          id="complaintDesc"
+          rows="5"
+          class="form-control nn-field"
+          formControlName="description"
+          [placeholder]="'RAISE.DESC_PLACEHOLDER' | translate"
+        ></textarea>
+
+        <!-- Location -->
+        <label class="form-label fw-semibold small mt-3 d-block">{{ 'RAISE.LOCATION' | translate }}</label>
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="useCurrentLocation()" [disabled]="locationStatus === 'loading'">
+            <span *ngIf="locationStatus === 'loading'" class="spinner-border spinner-border-sm me-1"></span>
+            <i *ngIf="locationStatus !== 'loading'" class="bi bi-geo-alt me-1"></i>
+            {{ 'RAISE.USE_LOCATION' | translate }}
+          </button>
+          <small *ngIf="locationStatus === 'success'" class="text-success">
+            <i class="bi bi-check-circle-fill me-1"></i>{{ 'RAISE.LOCATION_OK' | translate }}
+          </small>
+          <small *ngIf="locationStatus === 'error'" class="text-danger">{{ 'RAISE.LOCATION_ERR' | translate }}</small>
+        </div>
+      </div>
+
+      <!-- Upload -->
+      <div class="col-lg-5">
+        <label class="form-label fw-semibold small d-block">{{ 'RAISE.UPLOAD_LABEL' | translate }}</label>
+        <app-file-upload formControlName="media" [maxFiles]="5" [maxSizeMb]="10"></app-file-upload>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+      <button type="submit" class="btn nn-btn-primary px-5 py-2" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        {{ 'RAISE.CREATE' | translate }}
+        <i class="bi bi-arrow-right ms-2"></i>
+      </button>
+    </div>
+  </form>
+</div>

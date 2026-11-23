@@ -4,12 +4,25 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { HeaderComponent } from './components/header/header.component';
+import { AppShellComponent } from './components/app-shell/app-shell.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
+import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ImageFallbackDirective } from './directives/image-fallback.directive';
 import { TruncatePipe } from './pipes/truncate.pipe';
 
-const SHARED = [HeaderComponent, FooterComponent, ImageFallbackDirective, TruncatePipe];
+const SHARED = [
+  AppShellComponent,
+  FileUploadComponent,
+  FooterComponent,
+  HeaderComponent,
+  LanguageSwitcherComponent,
+  UserMenuComponent,
+  ImageFallbackDirective,
+  TruncatePipe
+];
 
 @NgModule({
   declarations: [...SHARED],

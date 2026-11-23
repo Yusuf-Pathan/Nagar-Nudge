@@ -1,0 +1,72 @@
+$green: #1b7a3e;
+$border: #cfd9d2;
+
+.nn-dropzone {
+  border: 2px dashed $border;
+  border-radius: 14px;
+  background: #f6f8f7;
+  text-align: center;
+  padding: 36px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &:hover,
+  &.dragging {
+    border-color: $green;
+    background: #eef7f1;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.nn-drop-icon {
+  font-size: 34px;
+  color: #5d6b72;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.nn-link {
+  color: $green;
+}
+
+.nn-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.nn-preview {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+
+  img,
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .nn-preview-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  selector: 'app-shell',
+  templateUrl: './app-shell.component.html',
+  styleUrls: ['./app-shell.component.scss']
+})
+export class AppShellComponent {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigateByUrl('/');
+  }
+}

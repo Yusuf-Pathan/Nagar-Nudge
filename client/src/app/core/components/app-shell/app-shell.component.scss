@@ -1,0 +1,117 @@
+$green: #1b7a3e;
+$green-dark: #0f5c2c;
+$green-light: #e8f5ec;
+$ink: #17313f;
+$muted: #5d6b72;
+$border: #dfe9e2;
+
+.nn-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nn-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid $border;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+
+  .brand-text {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.1;
+    color: $green-dark;
+  }
+}
+
+.nn-bell {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: $ink;
+  padding: 4px 6px;
+}
+
+.nn-bell-dot {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e53935;
+  border: 2px solid #fff;
+}
+
+.nn-shell-body {
+  display: flex;
+  flex: 1;
+}
+
+.nn-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid $border;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 69px;
+  height: calc(100vh - 69px);
+}
+
+.nn-side-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  color: $ink;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  border: none;
+  background: none;
+  width: 100%;
+
+  i {
+    font-size: 17px;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, $green, $green-dark);
+    color: #fff;
+  }
+
+  &:hover:not(.active) {
+    background: $green-light;
+  }
+}
+
+.nn-side-logout {
+  color: $muted;
+}
+
+.nn-main {
+  flex: 1;
+  padding: 28px 32px;
+  min-width: 0;
+}
+
+@media (max-width: 991px) {
+  .nn-sidebar {
+    display: none;
+  }
+
+  .nn-main {
+    padding: 20px 16px;
+  }
+}

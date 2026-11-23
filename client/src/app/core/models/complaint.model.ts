@@ -7,3 +7,16 @@ export interface Complaint {
   imageUrl: string;
   daysAgo: number;
 }
+
+export interface GeoPoint {
+  latitude: number;
+  longitude: number;
+}
+
+export interface CreateComplaintRequest {
+  category: string;
+  title: string;
+  description?: string;
+  location?: GeoPoint | null;
+  media: File[];
+}

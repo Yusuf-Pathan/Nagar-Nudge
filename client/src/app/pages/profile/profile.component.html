@@ -1,0 +1,22 @@
+<div class="nn-page-head mb-4">
+  <h2 class="fw-bold mb-1">{{ "PROFILE.TITLE" | translate }}</h2>
+</div>
+
+<section class="nn-card nn-profile">
+  <div class="nn-profile-avatar">{{ initial }}</div>
+  <div class="nn-profile-info">
+    <h4 class="fw-bold mb-1">{{ user?.name }}</h4>
+    <p class="text-secondary small mb-4">{{ "PROFILE.MEMBER" | translate }}</p>
+
+    <dl class="nn-profile-list mb-0">
+      <div>
+        <dt>{{ "PROFILE.NAME" | translate }}</dt>
+        <dd>{{ user?.name }}</dd>
+      </div>
+      <div>
+        <dt>{{ "PROFILE.EMAIL" | translate }}</dt>
+        <dd>{{ user?.email }}</dd>
+      </div>
+    </dl>
+  </div>
+</section>

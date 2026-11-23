@@ -4,30 +4,50 @@ $green-light: #e8f5ec;
 $ink: #17313f;
 $muted: #5d6b72;
 $border: #dfe9e2;
+$topbar-height: 64px;
 
-.nn-shell {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+:host {
+  display: block;
 }
 
+.nn-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+// TOP BAR
 .nn-topbar {
+  flex-shrink: 0;
+  height: $topbar-height;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
   background: #fff;
   border-bottom: 1px solid $border;
-  position: sticky;
-  top: 0;
   z-index: 1020;
+}
 
-  .brand-text {
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 1.1;
-    color: $green-dark;
-  }
+.nn-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nn-brand-text {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.1;
+  color: $green-dark;
+}
+
+.nn-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .nn-bell {
@@ -50,9 +70,11 @@ $border: #dfe9e2;
   border: 2px solid #fff;
 }
 
+// BODY (sidebar and main)
 .nn-shell-body {
-  display: flex;
   flex: 1;
+  display: flex;
+  min-height: 0; // lets children scroll instead of growing the page
 }
 
 .nn-sidebar {
@@ -63,9 +85,7 @@ $border: #dfe9e2;
   padding: 20px 16px;
   display: flex;
   flex-direction: column;
-  position: sticky;
-  top: 69px;
-  height: calc(100vh - 69px);
+  overflow-y: auto;
 }
 
 .nn-side-link {
@@ -102,16 +122,60 @@ $border: #dfe9e2;
 
 .nn-main {
   flex: 1;
-  padding: 28px 32px;
   min-width: 0;
+  overflow-y: auto;      // only this area scrolls
+  padding: 28px 32px;
+  background: transparent;
 }
 
-@media (max-width: 991px) {
+// MOBILE BOTTOM NAV (hidden on desktop)
+.nn-mobile-nav {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+  .nn-topbar {
+    padding: 0 16px;
+  }
+
   .nn-sidebar {
     display: none;
   }
 
   .nn-main {
-    padding: 20px 16px;
+    padding: 20px 16px 96px; // room for the bottom nav
+  }
+
+  .nn-mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid $border;
+    justify-content: space-around;
+    padding: 8px 0 10px;
+    z-index: 1030;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 12px;
+      color: $muted;
+      text-decoration: none;
+      flex: 1;
+
+      i {
+        font-size: 20px;
+      }
+
+      &.active {
+        color: $green;
+        font-weight: 600;
+      }
+    }
   }
 }

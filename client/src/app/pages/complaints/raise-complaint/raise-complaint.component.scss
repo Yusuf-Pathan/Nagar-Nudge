@@ -5,7 +5,8 @@ $ink: #17313f;
 $border: #dfe9e2;
 
 .nn-raise {
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .nn-field {
@@ -19,21 +20,25 @@ $border: #dfe9e2;
   }
 }
 
+.nn-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+}
+
 .nn-cat-tile {
   position: relative;
+  width: 100%;
   background: #fff;
   border: 1px solid $border;
   border-radius: 12px;
-  padding: 18px 8px 14px;
+  padding: 20px 8px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   color: $ink;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -41,12 +46,13 @@ $border: #dfe9e2;
   }
 
   &.active {
-    border: 2px solid $green;
+    border-color: $green;
     background: $green-light;
+    box-shadow: inset 0 0 0 1px $green;
   }
 
   .nn-cat-icon {
-    font-size: 26px;
+    font-size: 28px;
     line-height: 1;
   }
 
@@ -54,8 +60,8 @@ $border: #dfe9e2;
     position: absolute;
     top: -8px;
     right: -8px;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     background: $green;
     color: #fff;
@@ -63,5 +69,38 @@ $border: #dfe9e2;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.nn-raise-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (min-width: 992px) {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.nn-location {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.nn-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+
+  button {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .nn-actions button {
+    width: 100%;
   }
 }

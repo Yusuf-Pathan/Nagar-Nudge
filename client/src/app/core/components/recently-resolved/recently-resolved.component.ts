@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Complaint } from '../../../core/models';
+import { ResolvedComplaint } from '../../../core/models';
 import { ComplaintService } from '../../../core/services/complaint.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ComplaintService } from '../../../core/services/complaint.service';
   styleUrls: ['./recently-resolved.component.scss']
 })
 export class RecentlyResolvedComponent implements OnInit {
-  resolved$!: Observable<Complaint[]>;
+  resolved$!: Observable<ResolvedComplaint[]>;
 
   constructor(private complaintService: ComplaintService) {}
 

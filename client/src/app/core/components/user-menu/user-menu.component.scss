@@ -1,0 +1,25 @@
+.nn-avatar {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2fa35a 0%, #1b7a3e 55%, #0f5c2c 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(15, 92, 44, 0.25);
+
+  // Hides the Bootstrap caret
+  &::after {
+    display: none !important;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(27, 122, 62, 0.35);
+    outline-offset: 2px;
+  }
+}

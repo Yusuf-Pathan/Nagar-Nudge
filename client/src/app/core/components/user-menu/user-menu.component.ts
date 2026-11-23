@@ -5,7 +5,8 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-menu',
-  templateUrl: './user-menu.component.html'
+  templateUrl: './user-menu.component.html',
+  styleUrls: ['./user-menu.component.scss']
 })
 export class UserMenuComponent {
   constructor(private auth: AuthService, private router: Router) {}

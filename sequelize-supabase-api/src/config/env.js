@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const required = ['DATABASE_URL'];
+const required = ['DATABASE_URL', 'JWT_SECRET'];
 const missing = required.filter((k) => !process.env[k]);
 if (missing.length) {
   throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
@@ -11,6 +11,8 @@ module.exports = {
   port: Number(process.env.PORT) || 3000,
   databaseUrl: process.env.DATABASE_URL,
   dbSsl: process.env.DB_SSL !== 'false',
+  jwtSecret: process.env.JWT_SECRET,
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   supabase: {
     url: process.env.SUPABASE_URL,
     publishableKey: process.env.SUPABASE_PUBLISHABLE_KEY,

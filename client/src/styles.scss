@@ -306,3 +306,29 @@ body {
   }
 }
 
+.nn-link {
+  color: #1b7a3e;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.nn-input {
+  .input-group-text {
+    background: #fff;
+    color: #5d6b72;
+  }
+
+  .form-control {
+    border-left: none;
+    padding: 10px 12px;
+  }
+
+  .form-control:focus {
+    box-shadow: none;
+    border-color: #1b7a3e;
+  }
+}

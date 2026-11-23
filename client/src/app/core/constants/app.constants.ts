@@ -42,3 +42,5 @@ export const POPULAR_CATEGORIES: CategoryItem[] = [
   { key: 'DRAINAGE', icon: 'bi-water', colorClass: 'cat-drain' },
   // { key: 'OTHERS', icon: 'bi-three-dots', colorClass: 'cat-others' }
 ];
+
+export const USER_KEY = 'nn_user';

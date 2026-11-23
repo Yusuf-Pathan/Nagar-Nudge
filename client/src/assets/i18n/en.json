@@ -53,5 +53,46 @@
     "HELP": "Help",
     "CONTACT": "Contact",
     "RIGHTS": "All rights reserved."
+  },
+  "AUTH": {
+    "TAB_LOGIN": "Login",
+    "TAB_SIGNUP": "Sign Up",
+    "BANNER": {
+      "TAGLINE": "Together for a Better City",
+      "POINT_1": "Report civic issues easily",
+      "POINT_2": "Track updates in real-time",
+      "POINT_3": "Be a part of a cleaner city"
+    },
+    "LOGIN": {
+      "TITLE": "Welcome Back!",
+      "SUBTITLE": "Login to continue making a difference",
+      "IDENTIFIER": "Mobile Number or Email",
+      "PASSWORD": "Password",
+      "REMEMBER": "Remember me",
+      "FORGOT": "Forgot Password?",
+      "SUBMIT": "Login",
+      "NO_ACCOUNT": "Don't have an account?",
+      "GO_SIGNUP": "Sign Up"
+    },
+    "SIGNUP": {
+      "TITLE": "Create Account",
+      "SUBTITLE": "Join us and make your city better",
+      "NAME": "Full Name",
+      "MOBILE": "Mobile Number",
+      "EMAIL": "Email",
+      "PASSWORD": "Password (min 8 characters)",
+      "SUBMIT": "Sign Up",
+      "HAVE_ACCOUNT": "Already have an account?",
+      "GO_LOGIN": "Login",
+      "SUCCESS": "Account created. Please login to continue."
+    },
+    "ERRORS": {
+      "REQUIRED": "This field is required",
+      "IDENTIFIER": "Enter a valid email or 10-digit mobile number",
+      "EMAIL": "Enter a valid email address",
+      "MOBILE": "Enter a valid 10-digit mobile number",
+      "NAME_MIN": "Name must be at least 2 characters",
+      "PASSWORD_MIN": "Password must be at least 8 characters"
+    }
   }
 }

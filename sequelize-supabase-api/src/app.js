@@ -7,15 +7,19 @@ const rateLimit = require('express-rate-limit');
 const env = require('./config/env');
 const routes = require('./routes');
 const { notFound, errorHandler } = require('./middlewares/errorHandler');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({ origin: env.corsOrigins, methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], credentials: true }));
 app.use(compression());
 app.use(express.json({ limit: '1mb' }));
 if (env.nodeEnv !== 'test') app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'));
 app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, max: 300, standardHeaders: true, legacyHeaders: false }));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/v1', routes);
 app.use(notFound);

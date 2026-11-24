@@ -45,7 +45,8 @@
     "TITLE": "Recently Resolved",
     "VIEW_ALL": "View All",
     "RESOLVED": "Resolved",
-    "DAYS_AGO": "{{count}} days ago"
+    "DAYS_AGO": "{{count}} days ago",
+    "TODAY": "Today"
   },
   "FOOTER": {
     "TAGLINE": "Building a cleaner, safer and smarter city together.",

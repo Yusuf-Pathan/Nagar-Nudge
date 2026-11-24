@@ -4,26 +4,21 @@ import { catchError, map } from 'rxjs/operators';
 
 import { MOCK_COMPLAINTS } from '../constants/mock-data.constants';
 import { ApiEndpoint } from '../enums/api-endpoint.enum';
-import { ComplaintStatus } from '../enums/complaint-status.enum';
-import { ApiResponse, Complaint, CreateComplaintRequest, ResolvedComplaint } from '../models';
+import { ApiResponse, Complaint, CreateComplaintRequest, ResolvedComplaint, ResolvedComplaintDto } from '../models';
 import { HttpService } from './http.service';
 
-const PLACEHOLDER_IMAGE = 'assets/images/placeholder.svg';
+const MS_PER_DAY = 86_400_000;
 
-function toResolved(c: Complaint): ResolvedComplaint {
-  const days = Math.floor((Date.now() - new Date(c.createdAt).getTime()) / 86_400_000);
-  return {
-    id: c.id,
-    title: c.title,
-    imageUrl: c.mediaUrls[0] ?? PLACEHOLDER_IMAGE,
-    daysAgo: days
-  };
+function toViewModel(dto: ResolvedComplaintDto): ResolvedComplaint {
+  const daysAgo = Math.max(0, Math.floor((Date.now() - new Date(dto.resolvedAt).getTime()) / MS_PER_DAY));
+  return { ...dto, daysAgo };
 }
 
 @Injectable({ providedIn: 'root' })
 export class ComplaintService {
   constructor(private http: HttpService) {}
 
+  /** The logged-in user's complaints, newest first. */
   getMyComplaints(): Observable<Complaint[]> {
     return this.http.get<Complaint[]>(ApiEndpoint.MY_COMPLAINTS).pipe(
       map(res => res.data),
@@ -32,15 +27,18 @@ export class ComplaintService {
     );
   }
 
-  getResolvedComplaints(): Observable<ResolvedComplaint[]> {
-    return this.http.get<Complaint[]>(ApiEndpoint.RESOLVED_COMPLAINTS).pipe(
-      map(res => res.data.map(toResolved)),
-      catchError(() =>
-        of(MOCK_COMPLAINTS.filter(c => c.status === ComplaintStatus.RESOLVED).map(toResolved))
-      )
-    );
+  /** Public list of recently resolved complaints for the home page. */
+  getResolvedComplaints(limit = 6): Observable<ResolvedComplaint[]> {
+    return this.http
+      .get<ResolvedComplaintDto[]>(ApiEndpoint.RESOLVED_COMPLAINTS, '', { limit: String(limit) })
+      .pipe(
+        map(res => res.data.map(toViewModel)),
+        // The home page should still render if the API is down
+        catchError(() => of([]))
+      );
   }
 
+  /** Sends the complaint and its media as multipart/form-data. */
   createComplaint(payload: CreateComplaintRequest): Observable<ApiResponse<Complaint>> {
     const body = new FormData();
     body.append('category', payload.category);

@@ -5,22 +5,37 @@ export interface GeoPoint {
   longitude: number;
 }
 
+export interface ComplaintMedia {
+  type: string;
+  url: string;
+}
+
 export interface Complaint {
   id: string;
   category: string;
   title: string;
   description?: string | null;
   status: ComplaintStatus;
+  address?: string | null;
   location?: GeoPoint | null;
-  mediaUrls: string[];
-  createdAt: string; // ISO date from the API
+  media?: ComplaintMedia[];
+  submittedAt: string;
+  resolvedAt?: string | null;
 }
 
-/** Compact shape used by the "Recently Resolved" section on the home page. */
-export interface ResolvedComplaint {
+/** Shape returned by GET /complaints/resolved */
+export interface ResolvedComplaintDto {
   id: string;
   title: string;
-  imageUrl: string;
+  category: string;
+  address: string | null;
+  coverImage: string | null;
+  resolvedAt: string;
+  submittedAt: string;
+}
+
+/** View model used by the home page card */
+export interface ResolvedComplaint extends ResolvedComplaintDto {
   daysAgo: number;
 }
 
@@ -28,6 +43,6 @@ export interface CreateComplaintRequest {
   category: string;
   title: string;
   description?: string;
-  location: GeoPoint; // required
+  location: GeoPoint;
   media: File[];
 }

@@ -60,4 +60,22 @@ router.post('/', auth, uploadComplaintMedia, validate(v.create), c.create);
  */
 router.get('/my-complaint', auth, validate(v.myComplaintsQuery, 'query'), c.listMine);
 
+/**
+ * @openapi
+ * /complaints/resolved:
+ *   get:
+ *     tags: [Complaints]
+ *     summary: List recently resolved complaints (public)
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema: { type: integer, default: 3, minimum: 1, maximum: 20 }
+ *       - in: query
+ *         name: category
+ *         schema: { type: string, enum: [ROADS, STREETLIGHTS, GARBAGE, WATER, DRAINAGE] }
+ *     responses:
+ *       200: { description: Recently resolved complaints }
+ */
+router.get('/resolved', validate(v.resolvedQuery, 'query'), c.listResolved);
+
 module.exports = router;

@@ -14,3 +14,8 @@ exports.listMine = asyncHandler(async (req, res) => {
   const { items, meta } = await service.listMine(req.user.id, req.validatedQuery || req.query);
   res.json({ success: true, data: items, meta });
 });
+
+exports.listResolved = asyncHandler(async (req, res) => {
+  const data = await service.listResolved(req.validatedQuery || req.query);
+  res.json({ success: true, data });
+});

@@ -31,7 +31,7 @@
 <div *ngIf="!loading" class="nn-complaint-list">
   <article *ngFor="let c of filtered" class="nn-complaint">
     <img
-      [src]="c.mediaUrls[0] || 'assets/images/placeholder.svg'"
+      [src]="c.media?.[0]?.url || 'assets/images/placeholder.svg'"
       appImageFallback
       [alt]="c.title"
       class="nn-complaint-img"
@@ -43,7 +43,7 @@
       </div>
       <p class="small text-secondary mb-1">
         {{ 'CATEGORIES.' + c.category | translate }} · {{ 'MY.SUBMITTED_ON' | translate }}
-        {{ c.createdAt | date: 'mediumDate' }}
+        {{ c.submittedAt | date: 'mediumDate' }}
       </p>
       <p *ngIf="c.description" class="small mb-0 nn-complaint-desc">{{ c.description }}</p>
     </div>

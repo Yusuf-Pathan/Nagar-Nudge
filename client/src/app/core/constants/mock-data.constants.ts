@@ -11,9 +11,10 @@ export const MOCK_COMPLAINTS: Complaint[] = [
     title: 'Pothole on MG Road',
     description: 'Large pothole near the bus stop.',
     status: ComplaintStatus.RESOLVED,
+    address: null,
     location: null,
-    mediaUrls: ['assets/images/resolved/pothole.jpg'],
-    createdAt: daysAgoIso(2)
+    media: [{ type: 'image', url: 'assets/images/resolved/pothole.jpg' }],
+    submittedAt: daysAgoIso(2)
   },
   {
     id: '2',
@@ -21,9 +22,10 @@ export const MOCK_COMPLAINTS: Complaint[] = [
     title: 'Streetlight not working',
     description: '',
     status: ComplaintStatus.IN_PROGRESS,
+    address: null,
     location: null,
-    mediaUrls: ['assets/images/resolved/streetlight.jpg'],
-    createdAt: daysAgoIso(3)
+    media: [{ type: 'image', url: 'assets/images/resolved/streetlight.jpg' }],
+    submittedAt: daysAgoIso(3)
   },
   {
     id: '3',
@@ -31,8 +33,9 @@ export const MOCK_COMPLAINTS: Complaint[] = [
     title: 'Garbage not collected',
     description: 'Not collected for three days.',
     status: ComplaintStatus.PENDING,
+    address: null,
     location: null,
-    mediaUrls: ['assets/images/resolved/garbage.jpg'],
-    createdAt: daysAgoIso(4)
+    media: [{ type: 'image', url: 'assets/images/resolved/garbage.jpg' }],
+    submittedAt: daysAgoIso(4)
   }
 ];

@@ -61,4 +61,40 @@ exports.listMine = async (userId, query) => {
   };
 };
 
+exports.listResolved = async (query = {}) => {
+  const limit = Math.min(20, Math.max(1, Number(query.limit) || 3));
+  const category = query.category;
+
+  const where = { status: 'resolved' };
+  if (category) where.category = category;
+
+  const rows = await Complaint.findAll({
+    where,
+    order: [['resolvedAt', 'DESC NULLS LAST'], ['createdAt', 'DESC']],
+    limit,
+    attributes: [
+      'id',
+      'title',
+      'category',
+      'address',
+      'media',
+      'resolvedAt',
+      'createdAt',
+    ],
+  });
+
+  return rows.map((complaint) => {
+    const cover = (complaint.media || []).find((m) => m.type === 'image') || null;
+    return {
+      id: complaint.id,
+      title: complaint.title,
+      category: complaint.category,
+      address: complaint.address,
+      coverImage: cover ? toPublicUrl(cover.path) : null,
+      resolvedAt: complaint.resolvedAt,
+      submittedAt: complaint.createdAt,
+    };
+  });
+};
+
 exports.serialize = serialize;

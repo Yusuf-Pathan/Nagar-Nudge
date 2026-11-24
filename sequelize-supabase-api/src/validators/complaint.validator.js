@@ -15,3 +15,8 @@ exports.myComplaintsQuery = Joi.object({
   page: Joi.number().integer().min(1).default(1),
   limit: Joi.number().integer().min(1).max(50).default(10),
 }).unknown(true);
+
+exports.resolvedQuery = Joi.object({
+  limit: Joi.number().integer().min(1).max(20).default(3),
+  category: Joi.string().valid('ROADS', 'STREETLIGHTS', 'GARBAGE', 'WATER', 'DRAINAGE'),
+});

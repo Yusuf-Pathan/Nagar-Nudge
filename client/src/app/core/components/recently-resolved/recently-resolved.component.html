@@ -1,25 +1,28 @@
-<section class="container" id="recently-resolved">
-  <div class="nn-resolved">
+<!-- Hidden while loading and when the list is empty -->
+<section class="container" *ngIf="resolved$ | async as items">
+  <div class="nn-resolved" *ngIf="items.length > 0">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3 class="nn-card-title mb-0">{{ 'RESOLVED.TITLE' | translate }}</h3>
-      <!-- <a href="#" class="nn-view-all">{{ 'RESOLVED.VIEW_ALL' | translate }} <i class="bi bi-arrow-right"></i></a> -->
     </div>
 
     <div class="row g-3">
-      <div class="col-md-4" *ngFor="let item of resolved$ | async">
+      <div class="col-md-4" *ngFor="let item of items">
         <div class="nn-resolved-item d-flex align-items-center gap-3">
           <img
-            [src]="item.imageUrl"
+            [src]="item.coverImage || 'assets/images/placeholder.svg'"
             [alt]="item.title"
             appImageFallback
             class="nn-resolved-img"
           />
-          <div>
+          <div class="min-w-0">
             <h5 class="nn-resolved-title mb-2">{{ item.title | truncate: 30 }}</h5>
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center flex-wrap gap-2">
               <span class="nn-badge">{{ 'RESOLVED.RESOLVED' | translate }}</span>
               <small class="text-secondary">
-                {{ 'RESOLVED.DAYS_AGO' | translate: { count: item.daysAgo } }}
+                <ng-container *ngIf="item.daysAgo > 0; else today">
+                  {{ 'RESOLVED.DAYS_AGO' | translate: { count: item.daysAgo } }}
+                </ng-container>
+                <ng-template #today>{{ 'RESOLVED.TODAY' | translate }}</ng-template>
               </small>
             </div>
           </div>

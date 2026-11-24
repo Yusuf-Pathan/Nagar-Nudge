@@ -1,0 +1,51 @@
+<div class="nn-page-head d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+  <div>
+    <h2 class="fw-bold mb-1">{{ 'MY.TITLE' | translate }}</h2>
+    <p class="text-secondary mb-0">{{ 'MY.SUBTITLE' | translate }}</p>
+  </div>
+  <a routerLink="/complaints/new-complaint" class="btn nn-btn-primary px-4">
+    <i class="bi bi-plus-lg me-1"></i>{{ 'MY.RAISE_NOW' | translate }}
+  </a>
+</div>
+
+<div class="nn-pills mb-4">
+  <button
+    *ngFor="let f of filters"
+    type="button"
+    class="nn-pill"
+    [class.active]="activeFilter === f"
+    (click)="activeFilter = f"
+  >
+    {{ 'STATUS.' + (f | uppercase) | translate }}
+  </button>
+</div>
+
+<div *ngIf="loading" class="text-center py-5">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<div *ngIf="!loading && filtered.length === 0" class="nn-card text-center text-secondary py-5">
+  {{ 'MY.EMPTY' | translate }}
+</div>
+
+<div *ngIf="!loading" class="nn-complaint-list">
+  <article *ngFor="let c of filtered" class="nn-complaint">
+    <img
+      [src]="c.media?.[0]?.url || 'assets/images/placeholder.svg'"
+      appImageFallback
+      [alt]="c.title"
+      class="nn-complaint-img"
+    />
+    <div class="nn-complaint-body">
+      <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+        <h5 class="nn-complaint-title">{{ c.title }}</h5>
+        <app-status-badge [status]="c.status"></app-status-badge>
+      </div>
+      <p class="small text-secondary mb-1">
+        {{ 'CATEGORIES.' + c.category | translate }} · {{ 'MY.SUBMITTED_ON' | translate }}
+        {{ c.submittedAt | date: 'mediumDate' }}
+      </p>
+      <p *ngIf="c.description" class="small mb-0 nn-complaint-desc">{{ c.description }}</p>
+    </div>
+  </article>
+</div>

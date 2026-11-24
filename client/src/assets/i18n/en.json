@@ -45,7 +45,8 @@
     "TITLE": "Recently Resolved",
     "VIEW_ALL": "View All",
     "RESOLVED": "Resolved",
-    "DAYS_AGO": "{{count}} days ago"
+    "DAYS_AGO": "{{count}} days ago",
+    "TODAY": "Today"
   },
   "FOOTER": {
     "TAGLINE": "Building a cleaner, safer and smarter city together.",
@@ -94,5 +95,70 @@
       "NAME_MIN": "Name must be at least 2 characters",
       "PASSWORD_MIN": "Password must be at least 8 characters"
     }
+  },
+  "APP": {
+    "NOTIFICATIONS": "Notifications",
+    "SIDEBAR": {
+      "RAISE": "Raise a Complaint",
+      "MY": "My Complaints",
+      "PROFILE": "Profile"
+    },
+    "RAISE_SUCCESS": "Your complaint has been submitted successfully.",
+    "MOBILE": {
+      "RAISE": "Raise",
+      "MY": "My Complaints",
+      "PROFILE": "Profile"
+    }
+  },
+  "RAISE": {
+    "TITLE": "Raise a Complaint",
+    "SUBTITLE": "Let's report the issue and help our city get better.",
+    "SELECT_CATEGORY": "Select Category",
+    "TITLE_LABEL": "Complaint Title",
+    "TITLE_PLACEHOLDER": "e.g. Pothole on MG Road",
+    "DESC_LABEL": "Description",
+    "DESC_PLACEHOLDER": "Describe the issue in detail...",
+    "OPTIONAL": "Optional",
+    "LOCATION": "Location",
+    "USE_LOCATION": "Use Current Location",
+    "LOCATION_OK": "Location captured",
+    "LOCATION_ERR": "Could not get your location. Please allow location access.",
+    "UPLOAD_LABEL": "Upload Image or Video (Optional)",
+    "CREATE": "Create",
+    "ERRORS": {
+      "CATEGORY_REQUIRED": "Please select a category",
+      "TITLE_REQUIRED": "Complaint title is required",
+      "TITLE_MIN": "Title must be at least 5 characters",
+      "LOCATION_REQUIRED": "Please capture your location"
+    }
+  },
+  "UPLOAD": {
+    "DROP": "Drag & drop files here",
+    "OR": "or",
+    "BROWSE": "Browse Files",
+    "SUPPORTS": "Supports JPG, PNG, MP4 (Max {{size}}MB)",
+    "ERR_TYPE": "Only JPG, PNG, and MP4 files are allowed",
+    "ERR_SIZE": "Each file must be {{size}}MB or smaller",
+    "ERR_COUNT": "You can upload up to {{count}} files"
+  },
+  "STATUS": {
+    "ALL": "All",
+    "PENDING": "Pending",
+    "IN_PROGRESS": "In Progress",
+    "RESOLVED": "Resolved",
+    "REJECTED": "Rejected"
+  },
+  "MY": {
+    "TITLE": "My Complaints",
+    "SUBTITLE": "Track the status of every complaint you have raised.",
+    "RAISE_NOW": "Raise a Complaint",
+    "EMPTY": "You have not raised any complaints yet.",
+    "SUBMITTED_ON": "Submitted on"
+  },
+  "PROFILE": {
+    "TITLE": "Profile",
+    "MEMBER": "Citizen account",
+    "NAME": "Name",
+    "EMAIL": "Email"
   }
 }

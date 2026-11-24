@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const required = ['DATABASE_URL', 'JWT_SECRET'];
+const required = ['DATABASE_URL', 'JWT_SECRET', 'SUPABASE_URL', 'SUPABASE_SECRET_KEY'];
 const missing = required.filter((k) => !process.env[k]);
 if (missing.length) {
   throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
@@ -13,8 +13,9 @@ module.exports = {
   dbSsl: process.env.DB_SSL !== 'false',
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  maxUploadMb: Number(process.env.MAX_UPLOAD_MB) || 10,
   supabase: {
-    url: process.env.SUPABASE_URL,
+    url: process.env.SUPABASE_URL.replace(/\/$/, ''),
     publishableKey: process.env.SUPABASE_PUBLISHABLE_KEY,
     secretKey: process.env.SUPABASE_SECRET_KEY,
     jwksUrl: process.env.SUPABASE_JWKS_URL,

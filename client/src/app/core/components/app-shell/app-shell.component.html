@@ -1,0 +1,83 @@
+<div class="nn-shell">
+  <header class="nn-topbar">
+    <a class="nn-brand" routerLink="/">
+      <img
+        src="assets/images/logo.svg"
+        alt="Nagar Nudge logo"
+        width="40"
+        height="40"
+      />
+      <span class="nn-brand-text">Nagar<br />Nudge</span>
+    </a>
+
+    <div class="nn-topbar-actions">
+      <button
+        type="button"
+        class="nn-bell"
+        [attr.aria-label]="'APP.NOTIFICATIONS' | translate"
+      >
+        <i class="bi bi-bell"></i>
+        <span class="nn-bell-dot"></span>
+      </button>
+      <app-language-switcher></app-language-switcher>
+      <app-user-menu></app-user-menu>
+    </div>
+  </header>
+
+  <div class="nn-shell-body">
+    <aside class="nn-sidebar">
+      <nav class="nav flex-column gap-1">
+        <a
+          class="nav-link nn-side-link"
+          routerLink="/complaints/new-complaint"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-megaphone-fill"></i
+          >{{ "APP.SIDEBAR.RAISE" | translate }}
+        </a>
+        <a
+          class="nav-link nn-side-link"
+          routerLink="/complaints/my-complaint"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-card-list"></i>{{ "APP.SIDEBAR.MY" | translate }}
+        </a>
+        <a
+          class="nav-link nn-side-link"
+          routerLink="/profile"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-person"></i>{{ "APP.SIDEBAR.PROFILE" | translate }}
+        </a>
+      </nav>
+
+      <button
+        type="button"
+        class="nav-link nn-side-link nn-side-logout mt-auto"
+        (click)="logout()"
+      >
+        <i class="bi bi-box-arrow-right"></i>{{ "NAV.LOGOUT" | translate }}
+      </button>
+    </aside>
+
+    <main #main class="nn-main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <!-- Mobile bottom navigation -->
+  <nav class="nn-mobile-nav">
+    <a routerLink="/complaints/new-complaint" routerLinkActive="active">
+      <i class="bi bi-megaphone-fill"></i
+      ><span>{{ "APP.MOBILE.RAISE" | translate }}</span>
+    </a>
+    <a routerLink="/complaints/my-complaint" routerLinkActive="active">
+      <i class="bi bi-card-list"></i
+      ><span>{{ "APP.MOBILE.MY" | translate }}</span>
+    </a>
+    <a routerLink="/profile" routerLinkActive="active">
+      <i class="bi bi-person"></i
+      ><span>{{ "APP.MOBILE.PROFILE" | translate }}</span>
+    </a>
+  </nav>
+</div>

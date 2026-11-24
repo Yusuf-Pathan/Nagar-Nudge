@@ -1,0 +1,165 @@
+<div class="nn-raise">
+  <div class="nn-page-head mb-4">
+    <h2 class="fw-bold mb-1">{{ "RAISE.TITLE" | translate }}</h2>
+    <p class="text-secondary mb-0">{{ "RAISE.SUBTITLE" | translate }}</p>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success py-2 small">
+    {{ successMessage | translate }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger py-2 small">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- Category -->
+    <section class="nn-card mb-4">
+      <h6 class="fw-bold mb-3">{{ "RAISE.SELECT_CATEGORY" | translate }}</h6>
+      <div class="nn-cat-grid">
+        <button
+          *ngFor="let cat of categories"
+          type="button"
+          class="nn-cat-tile"
+          [class.active]="selectedCategory === cat.key"
+          [attr.aria-pressed]="selectedCategory === cat.key"
+          (click)="selectCategory(cat.key)"
+        >
+          <span *ngIf="selectedCategory === cat.key" class="nn-tile-check">
+            <i class="bi bi-check"></i>
+          </span>
+          <i class="bi {{ cat.icon }} nn-cat-icon {{ cat.colorClass }}"></i>
+          <span class="small fw-semibold">{{
+            "CATEGORIES." + cat.key | translate
+          }}</span>
+        </button>
+      </div>
+      <small
+        *ngIf="submitted && form.controls.category.invalid"
+        class="text-danger d-block mt-2"
+      >
+        {{ "RAISE.ERRORS.CATEGORY_REQUIRED" | translate }}
+      </small>
+    </section>
+
+    <div class="nn-raise-grid">
+      <!-- Details and location -->
+      <section class="nn-card">
+        <label for="complaintTitle" class="form-label fw-semibold small">
+          {{ "RAISE.TITLE_LABEL" | translate }}
+          <span class="text-danger">*</span>
+        </label>
+        <input
+          id="complaintTitle"
+          type="text"
+          class="form-control nn-field"
+          formControlName="title"
+          [placeholder]="'RAISE.TITLE_PLACEHOLDER' | translate"
+        />
+        <small
+          *ngIf="
+            (form.controls.title.touched || submitted) &&
+            form.controls.title.errors?.['required']
+          "
+          class="text-danger d-block mt-1"
+        >
+          {{ "RAISE.ERRORS.TITLE_REQUIRED" | translate }}
+        </small>
+        <small
+          *ngIf="
+            (form.controls.title.touched || submitted) &&
+            form.controls.title.errors?.['minlength']
+          "
+          class="text-danger d-block mt-1"
+        >
+          {{ "RAISE.ERRORS.TITLE_MIN" | translate }}
+        </small>
+
+        <label for="complaintDesc" class="form-label fw-semibold small mt-3">
+          {{ "RAISE.DESC_LABEL" | translate }}
+          <span class="text-secondary fw-normal"
+            >({{ "RAISE.OPTIONAL" | translate }})</span
+          >
+        </label>
+        <textarea
+          id="complaintDesc"
+          rows="5"
+          class="form-control nn-field"
+          formControlName="description"
+          [placeholder]="'RAISE.DESC_PLACEHOLDER' | translate"
+        ></textarea>
+
+        <label class="form-label fw-semibold small mt-3 d-block">
+          {{ "RAISE.LOCATION" | translate }} <span class="text-danger">*</span>
+        </label>
+        <div class="nn-location">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="useCurrentLocation()"
+            [disabled]="locationStatus === 'loading'"
+          >
+            <span
+              *ngIf="locationStatus === 'loading'"
+              class="spinner-border spinner-border-sm me-1"
+            ></span>
+            <i
+              *ngIf="locationStatus !== 'loading'"
+              class="bi bi-geo-alt me-1"
+            ></i>
+            {{ "RAISE.USE_LOCATION" | translate }}
+          </button>
+
+          <span
+            *ngIf="form.controls.location.value as loc"
+            class="small text-success"
+          >
+            <i class="bi bi-check-circle-fill me-1"></i
+            >{{ "RAISE.LOCATION_OK" | translate }} ({{
+              loc.latitude | number: "1.4-4"
+            }}, {{ loc.longitude | number: "1.4-4" }})
+          </span>
+        </div>
+
+        <small
+          *ngIf="locationStatus === 'error'"
+          class="text-danger d-block mt-2"
+        >
+          {{ "RAISE.LOCATION_ERR" | translate }}
+        </small>
+        <small
+          *ngIf="submitted && !form.controls.location.value"
+          class="text-danger d-block mt-2"
+        >
+          {{ "RAISE.ERRORS.LOCATION_REQUIRED" | translate }}
+        </small>
+      </section>
+
+      <!-- Media -->
+      <section class="nn-card">
+        <label class="form-label fw-semibold small d-block">{{
+          "RAISE.UPLOAD_LABEL" | translate
+        }}</label>
+        <app-file-upload
+          formControlName="media"
+          [maxFiles]="5"
+          [maxSizeMb]="10"
+        ></app-file-upload>
+      </section>
+    </div>
+
+    <div class="nn-actions">
+      <button
+        type="submit"
+        class="btn nn-btn-primary px-5 py-2"
+        [disabled]="loading"
+      >
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm me-2"
+        ></span>
+        {{ "RAISE.CREATE" | translate }}
+        <i class="bi bi-arrow-right ms-2"></i>
+      </button>
+    </div>
+  </form>
+</div>

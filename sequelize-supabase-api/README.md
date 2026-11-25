@@ -23,7 +23,7 @@ config/          sequelize-cli config
 migrations/      versioned schema (use these in production, never sync())
 seeders/         demo data
 src/config/      env + Sequelize connection
-src/models/      User, Task (User 1-N Task)
+src/models/      User, Task, Category, Complaint
 src/routes|controllers|services|validators|middlewares
 docs/angular16-integration.md
 ```
@@ -32,7 +32,18 @@ docs/angular16-integration.md
 | Method | Path | Description |
 |---|---|---|
 | GET | /health | API + DB check |
-| GET/POST | /users | list (paginated) / create |
+| POST | /auth/register | Create account |
+| POST | /auth/login | Login → accessToken |
+| POST | /auth/logout | Logout (discard JWT client-side) |
+| GET | /complaints/dashboard | Admin dashboard: stats, 6-month trend, recent |
+| GET | /complaints | List all complaints (filters: status, category, search, assigned, page, limit) |
+| GET | /complaints/:id | Complaint detail |
+| PATCH | /complaints/:id/assign | Assign / unassign (`assigneeId`: uuid or null); pending → in_progress |
+| PATCH | /complaints/:id/status | Change status (`pending` \| `in_progress` \| `resolved` \| `rejected`) |
+| GET | /complaints/assignable-users | Users available as assignees |
+| GET/POST | /categories | List / create categories |
+| PATCH/DELETE | /categories/:id | Update / delete category |
+| GET | /users | list (paginated) / create |
 | GET/PATCH/DELETE | /users/:id | read (with tasks) / update / delete |
 | GET/POST | /tasks | list (?page&limit&status&userId) / create |
 | GET/PATCH/DELETE | /tasks/:id | read / update / delete |

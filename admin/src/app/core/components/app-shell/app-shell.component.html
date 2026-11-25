@@ -1,0 +1,108 @@
+<div class="nn-shell">
+  <header class="nn-topbar">
+    <a class="nn-brand" routerLink="/dashboard">
+      <img
+        src="assets/images/logo.svg"
+        alt="Nagar Nudge logo"
+        width="36"
+        height="36"
+      />
+      <span class="nn-brand-text">Nagar<br />Nudge</span>
+    </a>
+
+    <div class="nn-topbar-actions">
+      <form class="nn-search d-none d-md-flex" (submit)="$event.preventDefault()">
+        <i class="bi bi-search"></i>
+        <input
+          type="search"
+          class="nn-search-input"
+          [placeholder]="'APP.SEARCH' | translate"
+          [attr.aria-label]="'APP.SEARCH' | translate"
+          #searchInput
+          (keyup.enter)="goSearch(searchInput.value)"
+        />
+      </form>
+      <button
+        type="button"
+        class="nn-bell"
+        [attr.aria-label]="'APP.NOTIFICATIONS' | translate"
+      >
+        <i class="bi bi-bell"></i>
+        <span class="nn-bell-dot"></span>
+      </button>
+      <app-language-switcher></app-language-switcher>
+      <app-user-menu></app-user-menu>
+    </div>
+  </header>
+
+  <div class="nn-shell-body">
+    <aside class="nn-sidebar">
+      <nav class="nav flex-column gap-1">
+        <a
+          class="nav-link nn-side-link"
+          routerLink="/dashboard"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-speedometer2"></i
+          >{{ "APP.SIDEBAR.DASHBOARD" | translate }}
+        </a>
+        <a
+          class="nav-link nn-side-link"
+          routerLink="/complaints/all"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-card-list"></i
+          >{{ "APP.SIDEBAR.ALL_COMPLAINTS" | translate }}
+        </a>
+        <a
+          class="nav-link nn-side-link"
+          routerLink="/complaints/assign"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-person-plus-fill"></i
+          >{{ "APP.SIDEBAR.ASSIGN" | translate }}
+        </a>
+        <a
+          class="nav-link nn-side-link"
+          routerLink="/categories"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-tags-fill"></i
+          >{{ "APP.SIDEBAR.CATEGORIES" | translate }}
+        </a>
+      </nav>
+
+      <button
+        type="button"
+        class="nav-link nn-side-link nn-side-logout mt-auto"
+        (click)="logout()"
+      >
+        <i class="bi bi-box-arrow-right"></i>{{ "NAV.LOGOUT" | translate }}
+      </button>
+    </aside>
+
+    <main #main class="nn-main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <!-- Mobile bottom navigation -->
+  <nav class="nn-mobile-nav">
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <i class="bi bi-speedometer2"></i
+      ><span>{{ "APP.MOBILE.DASHBOARD" | translate }}</span>
+    </a>
+    <a routerLink="/complaints/all" routerLinkActive="active">
+      <i class="bi bi-card-list"></i
+      ><span>{{ "APP.MOBILE.ALL" | translate }}</span>
+    </a>
+    <a routerLink="/complaints/assign" routerLinkActive="active">
+      <i class="bi bi-person-plus-fill"></i
+      ><span>{{ "APP.MOBILE.ASSIGN" | translate }}</span>
+    </a>
+    <a routerLink="/categories" routerLinkActive="active">
+      <i class="bi bi-tags-fill"></i
+      ><span>{{ "APP.MOBILE.CATEGORIES" | translate }}</span>
+    </a>
+  </nav>
+</div>

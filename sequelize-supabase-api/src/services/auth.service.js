@@ -60,3 +60,10 @@ exports.login = async ({ identifier, password }) => {
 
   return buildAuthResponse(user);
 };
+
+// Stateless JWT: the client discards the token on logout.
+// Token is validated by auth middleware before this runs.
+exports.logout = async (user) => ({
+  userId: user.id,
+  loggedOutAt: new Date().toISOString(),
+});

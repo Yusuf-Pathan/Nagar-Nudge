@@ -2,6 +2,7 @@ const router = require('express').Router();
 const c = require('../controllers/auth.controller');
 const v = require('../validators/auth.validator');
 const validate = require('../middlewares/validate');
+const auth = require('../middlewares/auth');
 
 /**
  * @openapi
@@ -54,5 +55,20 @@ router.post('/register', validate(v.register), c.register);
  *         description: Invalid credentials
  */
 router.post('/login', validate(v.login), c.login);
+
+/**
+ * @openapi
+ * /auth/logout:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Log out (client discards the JWT)
+ *     security: [{ bearerAuth: [] }]
+ *     responses:
+ *       200:
+ *         description: Logged out
+ *       401:
+ *         description: Not authenticated
+ */
+router.post('/logout', auth, c.logout);
 
 module.exports = router;

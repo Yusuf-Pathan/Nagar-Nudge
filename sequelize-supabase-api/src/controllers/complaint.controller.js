@@ -19,3 +19,44 @@ exports.listResolved = asyncHandler(async (req, res) => {
   const data = await service.listResolved(req.validatedQuery || req.query);
   res.json({ success: true, data });
 });
+
+exports.listAll = asyncHandler(async (req, res) => {
+  const { items, meta } = await service.listAll(req.validatedQuery || req.query);
+  res.json({ success: true, data: items, meta });
+});
+
+exports.get = asyncHandler(async (req, res) => {
+  res.json({ success: true, data: await service.getById(req.params.id) });
+});
+
+exports.assign = asyncHandler(async (req, res) => {
+  const data = await service.assign(req.params.id, req.body.assigneeId);
+  res.json({
+    success: true,
+    message: data.assignee ? 'Complaint assigned successfully' : 'Complaint unassigned',
+    data,
+  });
+});
+
+exports.updateStatus = asyncHandler(async (req, res) => {
+  const data = await service.updateStatus(req.params.id, req.body.status);
+  const messages = {
+    pending: 'Complaint marked as pending',
+    in_progress: 'Complaint is now in progress',
+    resolved: 'Complaint marked as resolved',
+    rejected: 'Complaint rejected',
+  };
+  res.json({
+    success: true,
+    message: messages[data.status] || 'Status updated',
+    data,
+  });
+});
+
+exports.dashboard = asyncHandler(async (_req, res) => {
+  res.json({ success: true, data: await service.getDashboard() });
+});
+
+exports.assignableUsers = asyncHandler(async (_req, res) => {
+  res.json({ success: true, data: await service.getAssignableUsers() });
+});

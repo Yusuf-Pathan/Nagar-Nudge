@@ -1,0 +1,147 @@
+<div class="nn-page-head mb-4">
+  <h2 class="fw-bold mb-1">{{ 'ASSIGN.TITLE' | translate }}</h2>
+  <p class="text-secondary mb-0">{{ 'ASSIGN.SUBTITLE' | translate }}</p>
+</div>
+
+<div class="nn-pills mb-4">
+  <button
+    *ngFor="let f of filters"
+    type="button"
+    class="nn-pill"
+    [class.active]="activeFilter === f"
+    (click)="setFilter(f)"
+  >
+    {{ 'ASSIGN.FILTER.' + (f | uppercase) | translate }}
+  </button>
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success py-2">{{ successMessage }}</div>
+<div *ngIf="!successMessage && errorMessage" class="alert alert-danger py-2">{{ errorMessage }}</div>
+
+<div *ngIf="loading" class="text-center py-5">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<div *ngIf="!loading && complaints.length === 0" class="nn-card text-center text-secondary py-5">
+  {{ 'ASSIGN.EMPTY' | translate }}
+</div>
+
+<div *ngIf="!loading && complaints.length" class="nn-card p-0 overflow-hidden">
+  <div class="table-responsive">
+    <table class="table nn-table align-middle">
+      <thead>
+        <tr>
+          <th>{{ 'TABLE.TITLE' | translate }}</th>
+          <th>{{ 'TABLE.CATEGORY' | translate }}</th>
+          <th>{{ 'TABLE.STATUS' | translate }}</th>
+          <th>{{ 'TABLE.ASSIGNEE' | translate }}</th>
+          <th>{{ 'TABLE.ACTION' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of complaints">
+          <td>
+            <div class="fw-semibold">{{ c.title }}</div>
+            <div class="small text-secondary" *ngIf="c.address">{{ c.address | truncate:40 }}</div>
+          </td>
+          <td><span class="nn-chip">{{ c.categoryName || c.category }}</span></td>
+          <td><app-status-badge [status]="c.status"></app-status-badge></td>
+          <td class="small">{{ c.assignee?.name || '—' }}</td>
+          <td>
+            <div class="d-flex gap-2 align-items-center flex-wrap">
+              <!-- Assign controls (only when not already terminal) -->
+              <ng-container *ngIf="!canReopen(c)">
+                <select
+                  class="form-select form-select-sm"
+                  style="min-width: 150px; width: auto;"
+                  [disabled]="savingId === c.id"
+                  #assigneeSelect
+                >
+                  <option value="" disabled selected>{{ 'ASSIGN.SELECT_USER' | translate }}</option>
+                  <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>
+                </select>
+                <button
+                  type="button"
+                  class="btn nn-btn-primary btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="assign(c, assigneeSelect)"
+                >
+                  <span *ngIf="savingId === c.id" class="spinner-border spinner-border-sm"></span>
+                  <span *ngIf="savingId !== c.id">{{ 'ASSIGN.ASSIGN' | translate }}</span>
+                </button>
+                <button
+                  *ngIf="c.assignedTo"
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="unassign(c)"
+                  [attr.aria-label]="'ASSIGN.UNASSIGN' | translate"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </ng-container>
+
+              <!-- Status controls -->
+              <div class="d-flex gap-1">
+                <button
+                  *ngIf="canResolve(c)"
+                  type="button"
+                  class="btn btn-success btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="changeStatus(c, Status.RESOLVED)"
+                >
+                  <i class="bi bi-check-lg me-1"></i>{{ 'ACTIONS.RESOLVE' | translate }}
+                </button>
+                <button
+                  *ngIf="canReject(c)"
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="changeStatus(c, Status.REJECTED)"
+                >
+                  <i class="bi bi-x-lg me-1"></i>{{ 'ACTIONS.REJECT' | translate }}
+                </button>
+                <button
+                  *ngIf="canReopen(c)"
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="changeStatus(c, Status.IN_PROGRESS)"
+                >
+                  <i class="bi bi-arrow-counterclockwise me-1"></i>{{ 'ACTIONS.REOPEN' | translate }}
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    *ngIf="meta && meta.totalPages > 1"
+    class="d-flex justify-content-between align-items-center p-3 border-top"
+  >
+    <small class="text-secondary">
+      {{ 'ALL.SHOWING' | translate:{ page: page, total: meta.totalPages, count: meta.total } }}
+    </small>
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="page <= 1"
+        (click)="setPage(page - 1)"
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="page >= (meta.totalPages || 1)"
+        (click)="setPage(page + 1)"
+      >
+        ›
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="nn-page-head mb-4">
+  <h2 class="fw-bold mb-1">{{ 'DASHBOARD.TITLE' | translate }}</h2>
+  <p class="text-secondary mb-0">{{ 'DASHBOARD.SUBTITLE' | translate }}</p>
+</div>
+
+<div *ngIf="loading" class="text-center py-5">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<div *ngIf="!loading && errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<ng-container *ngIf="!loading && data">
+  <!-- KPI cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-xl-3">
+      <div class="nn-card nn-stat nn-stat-total h-100">
+        <div class="nn-stat-icon"><i class="bi bi-receipt"></i></div>
+        <div>
+          <p class="nn-stat-label">{{ 'DASHBOARD.TOTAL' | translate }}</p>
+          <p class="nn-stat-value">{{ data.stats.total | number }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="nn-card nn-stat nn-stat-pending h-100">
+        <div class="nn-stat-icon"><i class="bi bi-clock-history"></i></div>
+        <div>
+          <p class="nn-stat-label">{{ 'DASHBOARD.PENDING' | translate }}</p>
+          <p class="nn-stat-value">{{ data.stats.pending | number }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="nn-card nn-stat nn-stat-progress h-100">
+        <div class="nn-stat-icon"><i class="bi bi-gear-wide-connected"></i></div>
+        <div>
+          <p class="nn-stat-label">{{ 'DASHBOARD.IN_PROGRESS' | translate }}</p>
+          <p class="nn-stat-value">{{ data.stats.inProgress | number }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="nn-card nn-stat nn-stat-resolved h-100">
+        <div class="nn-stat-icon"><i class="bi bi-check-circle"></i></div>
+        <div>
+          <p class="nn-stat-label">{{ 'DASHBOARD.RESOLVED' | translate }}</p>
+          <p class="nn-stat-value">{{ data.stats.resolved | number }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Trend chart -->
+    <div class="col-lg-7">
+      <div class="nn-card h-100">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="nn-card-title mb-0">{{ 'DASHBOARD.TREND' | translate }}</h3>
+          <div class="d-flex gap-3 small">
+            <span class="nn-legend"><span class="nn-dot nn-dot-total"></span>{{ 'DASHBOARD.LEGEND_TOTAL' | translate }}</span>
+            <span class="nn-legend"><span class="nn-dot nn-dot-resolved"></span>{{ 'DASHBOARD.LEGEND_RESOLVED' | translate }}</span>
+          </div>
+        </div>
+
+        <svg
+          [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight"
+          class="nn-chart"
+          role="img"
+          [attr.aria-label]="'DASHBOARD.TREND' | translate"
+        >
+          <!-- grid -->
+          <line
+            *ngFor="let t of yTicks()"
+            [attr.x1]="chartPadX"
+            [attr.x2]="chartWidth - chartPadX"
+            [attr.y1]="yFor(t)"
+            [attr.y2]="yFor(t)"
+            class="nn-grid"
+          />
+          <text
+            *ngFor="let t of yTicks()"
+            [attr.x]="chartPadX - 8"
+            [attr.y]="yFor(t) + 4"
+            class="nn-axis"
+            text-anchor="end"
+          >{{ t | number }}</text>
+
+          <!-- resolved line -->
+          <path
+            *ngIf="resolvedPath()"
+            [attr.d]="resolvedPath()"
+            class="nn-line nn-line-resolved"
+            fill="none"
+          />
+          <!-- total line -->
+          <path
+            *ngIf="totalPath()"
+            [attr.d]="totalPath()"
+            class="nn-line nn-line-total"
+            fill="none"
+          />
+
+          <!-- x labels -->
+          <text
+            *ngFor="let p of trend; let i = index"
+            [attr.x]="xFor(i)"
+            [attr.y]="chartHeight - 4"
+            class="nn-axis"
+            text-anchor="middle"
+          >{{ p.label }}</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Recent complaints -->
+    <div class="col-lg-5">
+      <div class="nn-card h-100">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="nn-card-title mb-0">{{ 'DASHBOARD.RECENT' | translate }}</h3>
+          <a routerLink="/complaints/all" class="nn-view-all">{{ 'DASHBOARD.VIEW_ALL' | translate }} →</a>
+        </div>
+
+        <div *ngIf="data.recent.length === 0" class="text-secondary small py-4 text-center">
+          {{ 'DASHBOARD.NO_RECENT' | translate }}
+        </div>
+
+        <div class="table-responsive">
+          <table class="table nn-table" *ngIf="data.recent.length">
+            <thead>
+              <tr>
+                <th>{{ 'TABLE.TITLE' | translate }}</th>
+                <th>{{ 'TABLE.CATEGORY' | translate }}</th>
+                <th>{{ 'TABLE.STATUS' | translate }}</th>
+                <th>{{ 'TABLE.DATE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of data.recent">
+                <td class="fw-semibold">{{ c.title | truncate:28 }}</td>
+                <td><span class="nn-chip">{{ c.categoryName || c.category }}</span></td>
+                <td><app-status-badge [status]="c.status"></app-status-badge></td>
+                <td class="text-secondary small">{{ formatTime(c.submittedAt) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

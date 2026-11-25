@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.nn-public-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.nn-public-header,
+.nn-public-footer {
+  flex-shrink: 0;
+}
+
+.nn-public-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}

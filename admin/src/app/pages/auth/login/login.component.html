@@ -1,0 +1,37 @@
+<section class="container nn-auth">
+  <div class="nn-auth-card row g-0">
+    <!-- Left banner -->
+    <div
+      class="col-lg-6 nn-auth-banner d-none d-lg-flex flex-column justify-content-between"
+    >
+      <div class="position-relative">
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <img
+            src="assets/images/logo.svg"
+            alt="Nagar Nudge logo"
+            width="56"
+            height="56"
+          />
+          <div class="nn-auth-brand">Nagar<br />Nudge</div>
+        </div>
+        <h2 class="nn-auth-tagline">{{ "AUTH.BANNER.TAGLINE" | translate }}</h2>
+        <p class="nn-auth-sub mb-0">{{ "AUTH.BANNER.SUBTITLE" | translate }}</p>
+      </div>
+
+      <ul class="list-unstyled position-relative nn-auth-points mb-0">
+        <li
+          *ngFor="let point of bannerPoints"
+          class="d-flex align-items-center gap-2 mb-2"
+        >
+          <i class="bi bi-check-circle-fill"></i>
+          <span>{{ point | translate }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right form -->
+    <div class="col-lg-6 p-4 p-md-5 d-flex flex-column justify-content-center">
+      <app-login-form></app-login-form>
+    </div>
+  </div>
+</section>

@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const { COMPLAINT_CATEGORIES, COMPLAINT_STATUSES } = require('../constants/complaint.constants');
+const { COMPLAINT_STATUSES } = require('../constants/complaint.constants');
 
 module.exports = (sequelize) => {
   const Complaint = sequelize.define(
@@ -9,21 +9,19 @@ module.exports = (sequelize) => {
       userId: { type: DataTypes.UUID, allowNull: false },
       title: { type: DataTypes.STRING(150), allowNull: false },
       description: { type: DataTypes.TEXT, allowNull: true },
-      category: {
-        type: DataTypes.STRING(30),
-        allowNull: false,
-        validate: { isIn: [COMPLAINT_CATEGORIES] },
-      },
+      category: { type: DataTypes.STRING(30), allowNull: false },
       status: {
         type: DataTypes.STRING(20),
         allowNull: false,
-        defaultValue: 'Pending',
+        defaultValue: 'pending',
         validate: { isIn: [COMPLAINT_STATUSES] },
       },
       latitude: { type: DataTypes.DECIMAL(10, 7), allowNull: false },
       longitude: { type: DataTypes.DECIMAL(10, 7), allowNull: false },
       address: { type: DataTypes.STRING(255), allowNull: true },
       media: { type: DataTypes.JSONB, allowNull: false, defaultValue: [] },
+      assignedTo: { type: DataTypes.UUID, allowNull: true },
+      assignedAt: { type: DataTypes.DATE, allowNull: true },
       resolvedAt: { type: DataTypes.DATE, allowNull: true },
     },
     { tableName: 'complaints' }
@@ -31,6 +29,8 @@ module.exports = (sequelize) => {
 
   Complaint.associate = (models) => {
     Complaint.belongsTo(models.User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
+    Complaint.belongsTo(models.User, { foreignKey: 'assignedTo', as: 'assignee', onDelete: 'SET NULL' });
+    Complaint.belongsTo(models.Category, { foreignKey: 'category', targetKey: 'code', as: 'categoryRef', constraints: false });
   };
 
   return Complaint;

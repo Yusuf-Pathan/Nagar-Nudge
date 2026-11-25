@@ -12,6 +12,7 @@ router.get('/health', async (_req, res) => {
 
 router.use('/auth', require('./auth.routes'));
 router.use('/complaints', require('./complaint.routes'));
+router.use('/categories', require('./category.routes'));
 router.use('/users', require('./user.routes'));
 router.use('/tasks', require('./task.routes'));
 

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ApiEndpoint } from '../enums/api-endpoint.enum';
+import { ComplaintStatus } from '../enums/complaint-status.enum';
 import { ApiResponse, AssignComplaintRequest, Complaint, DashboardData, PaginationMeta } from '../models';
 import { HttpService } from './http.service';
 
@@ -50,5 +51,13 @@ export class ComplaintService {
   assign(id: string, assigneeId: string | null): Observable<ApiResponse<Complaint>> {
     const body: AssignComplaintRequest = { assigneeId };
     return this.http.patch<Complaint, AssignComplaintRequest>(ApiEndpoint.COMPLAINTS, body, `/${id}/assign`);
+  }
+
+  updateStatus(id: string, status: ComplaintStatus): Observable<ApiResponse<Complaint>> {
+    return this.http.patch<Complaint, { status: ComplaintStatus }>(
+      ApiEndpoint.COMPLAINTS,
+      { status },
+      `/${id}/status`
+    );
   }
 }

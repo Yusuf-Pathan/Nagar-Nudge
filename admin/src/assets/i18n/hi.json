@@ -52,6 +52,12 @@
     "RESOLVED": "हल हुआ",
     "REJECTED": "अस्वीकृत"
   },
+  "ACTIONS": {
+    "START": "शुरू करें",
+    "RESOLVE": "हल करें",
+    "REJECT": "अस्वीकृत करें",
+    "REOPEN": "फिर से खोलें"
+  },
   "TABLE": {
     "TITLE": "शिकायत",
     "CATEGORY": "श्रेणी",

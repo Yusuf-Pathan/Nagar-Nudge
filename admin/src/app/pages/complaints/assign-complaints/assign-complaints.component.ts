@@ -18,6 +18,8 @@ interface AssignableUser {
   styleUrls: ['./assign-complaints.component.scss'],
 })
 export class AssignComplaintsComponent implements OnInit {
+  readonly Status = ComplaintStatus;
+
   readonly filters: AssignFilter[] = ['unassigned', 'assigned', 'all'];
 
   complaints: Complaint[] = [];
@@ -26,11 +28,11 @@ export class AssignComplaintsComponent implements OnInit {
   activeFilter: AssignFilter = 'unassigned';
   loading = true;
   errorMessage = '';
+  successMessage = '';
   page = 1;
   readonly limit = 10;
 
   savingId: string | null = null;
-  successMessage = '';
 
   constructor(private complaintService: ComplaintService) {}
 
@@ -51,6 +53,18 @@ export class AssignComplaintsComponent implements OnInit {
     this.load();
   }
 
+  canResolve(c: Complaint): boolean {
+    return c.status === ComplaintStatus.PENDING || c.status === ComplaintStatus.IN_PROGRESS;
+  }
+
+  canReject(c: Complaint): boolean {
+    return c.status === ComplaintStatus.PENDING || c.status === ComplaintStatus.IN_PROGRESS;
+  }
+
+  canReopen(c: Complaint): boolean {
+    return c.status === ComplaintStatus.RESOLVED || c.status === ComplaintStatus.REJECTED;
+  }
+
   assign(complaint: Complaint, select: HTMLSelectElement): void {
     const value = select.value;
     if (!value) return;
@@ -67,7 +81,6 @@ export class AssignComplaintsComponent implements OnInit {
           if (idx >= 0) this.complaints[idx] = res.data;
         }
         this.successMessage = res.message || 'Assigned';
-        // Refresh current filter (unassigned list shrinks)
         this.load();
       },
       error: (err: Error) => {
@@ -90,6 +103,30 @@ export class AssignComplaintsComponent implements OnInit {
           if (idx >= 0) this.complaints[idx] = res.data;
         }
         this.successMessage = res.message || 'Unassigned';
+        this.load();
+      },
+      error: (err: Error) => {
+        this.savingId = null;
+        this.errorMessage = err.message;
+      },
+    });
+  }
+
+  changeStatus(complaint: Complaint, status: ComplaintStatus): void {
+    if (this.savingId) return;
+
+    this.savingId = complaint.id;
+    this.successMessage = '';
+    this.errorMessage = '';
+
+    this.complaintService.updateStatus(complaint.id, status).subscribe({
+      next: (res) => {
+        this.savingId = null;
+        if (res.data) {
+          const idx = this.complaints.findIndex((c) => c.id === complaint.id);
+          if (idx >= 0) this.complaints[idx] = res.data;
+        }
+        this.successMessage = res.message || 'Status updated';
         this.load();
       },
       error: (err: Error) => {

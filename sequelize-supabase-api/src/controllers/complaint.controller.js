@@ -38,6 +38,21 @@ exports.assign = asyncHandler(async (req, res) => {
   });
 });
 
+exports.updateStatus = asyncHandler(async (req, res) => {
+  const data = await service.updateStatus(req.params.id, req.body.status);
+  const messages = {
+    pending: 'Complaint marked as pending',
+    in_progress: 'Complaint is now in progress',
+    resolved: 'Complaint marked as resolved',
+    rejected: 'Complaint rejected',
+  };
+  res.json({
+    success: true,
+    message: messages[data.status] || 'Status updated',
+    data,
+  });
+});
+
 exports.dashboard = asyncHandler(async (_req, res) => {
   res.json({ success: true, data: await service.getDashboard() });
 });

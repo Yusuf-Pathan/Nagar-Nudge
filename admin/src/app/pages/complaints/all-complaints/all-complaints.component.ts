@@ -13,6 +13,8 @@ export type StatusFilter = 'all' | ComplaintStatus;
   styleUrls: ['./all-complaints.component.scss'],
 })
 export class AllComplaintsComponent implements OnInit {
+  readonly Status = ComplaintStatus;
+
   readonly filters: StatusFilter[] = [
     'all',
     ComplaintStatus.PENDING,
@@ -27,8 +29,10 @@ export class AllComplaintsComponent implements OnInit {
   search = '';
   loading = true;
   errorMessage = '';
+  successMessage = '';
   page = 1;
   readonly limit = 10;
+  savingId: string | null = null;
 
   constructor(
     private complaintService: ComplaintService,
@@ -66,6 +70,50 @@ export class AllComplaintsComponent implements OnInit {
       relativeTo: this.route,
       queryParams: { page },
       queryParamsHandling: 'merge',
+    });
+  }
+
+  /** Show resolve/reject while work is open; start while pending; reopen after terminal. */
+  canResolve(c: Complaint): boolean {
+    return c.status === ComplaintStatus.PENDING || c.status === ComplaintStatus.IN_PROGRESS;
+  }
+
+  canReject(c: Complaint): boolean {
+    return c.status === ComplaintStatus.PENDING || c.status === ComplaintStatus.IN_PROGRESS;
+  }
+
+  canStart(c: Complaint): boolean {
+    return c.status === ComplaintStatus.PENDING;
+  }
+
+  canReopen(c: Complaint): boolean {
+    return c.status === ComplaintStatus.RESOLVED || c.status === ComplaintStatus.REJECTED;
+  }
+
+  changeStatus(complaint: Complaint, status: ComplaintStatus): void {
+    if (this.savingId) return;
+
+    this.savingId = complaint.id;
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    this.complaintService.updateStatus(complaint.id, status).subscribe({
+      next: (res) => {
+        this.savingId = null;
+        if (res.data) {
+          const idx = this.complaints.findIndex((c) => c.id === complaint.id);
+          if (idx >= 0) this.complaints[idx] = res.data;
+        }
+        this.successMessage = res.message || 'Status updated';
+        // If a status filter is active, the row may no longer belong in the list
+        if (this.activeFilter !== 'all') {
+          this.load();
+        }
+      },
+      error: (err: Error) => {
+        this.savingId = null;
+        this.errorMessage = err.message;
+      },
     });
   }
 

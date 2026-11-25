@@ -34,6 +34,10 @@ exports.assign = Joi.object({
   assigneeId: Joi.string().uuid().allow(null).required(),
 }).unknown(true);
 
+exports.updateStatus = Joi.object({
+  status: Joi.string().valid(...COMPLAINT_STATUSES).required(),
+}).unknown(true);
+
 exports.idParam = Joi.object({
   id: Joi.string().uuid().required(),
 });

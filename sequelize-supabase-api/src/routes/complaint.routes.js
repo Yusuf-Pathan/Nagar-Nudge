@@ -189,4 +189,35 @@ router.get('/:id', auth, validate(v.idParam, 'params'), c.get);
  */
 router.patch('/:id/assign', auth, validate(v.idParam, 'params'), validate(v.assign), c.assign);
 
+/**
+ * @openapi
+ * /complaints/{id}/status:
+ *   patch:
+ *     tags: [Complaints]
+ *     summary: Update complaint status (resolve, reject, start, reopen)
+ *     security: [{ bearerAuth: [] }]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string, format: uuid }
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [status]
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [pending, in_progress, resolved, rejected]
+ *     responses:
+ *       200: { description: Updated complaint }
+ *       400: { description: Invalid transition }
+ *       401: { description: Not authenticated }
+ *       404: { description: Complaint not found }
+ */
+router.patch('/:id/status', auth, validate(v.idParam, 'params'), validate(v.updateStatus), c.updateStatus);
+
 module.exports = router;

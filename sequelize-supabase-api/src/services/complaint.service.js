@@ -168,8 +168,46 @@ exports.assign = async (id, assigneeId) => {
 
   complaint.assignedTo = assigneeId || null;
   complaint.assignedAt = assigneeId ? new Date() : null;
+  // Assigning a pending complaint starts work
   if (assigneeId && complaint.status === 'pending') {
     complaint.status = 'in_progress';
+  }
+  await complaint.save();
+
+  const fresh = await Complaint.findByPk(id, { include: ASSOCIATIONS });
+  return serialize(fresh);
+};
+
+/** Allowed status transitions for admin actions. */
+const STATUS_TRANSITIONS = {
+  pending: ['in_progress', 'resolved', 'rejected'],
+  in_progress: ['resolved', 'rejected', 'pending'],
+  resolved: ['in_progress', 'rejected'],
+  rejected: ['pending', 'in_progress'],
+};
+
+exports.updateStatus = async (id, status) => {
+  const complaint = await Complaint.findByPk(id, { include: ASSOCIATIONS });
+  if (!complaint) throw new AppError('Complaint not found', 404);
+
+  const current = complaint.status;
+  if (current === status) {
+    return serialize(complaint);
+  }
+
+  const allowed = STATUS_TRANSITIONS[current] || [];
+  if (!allowed.includes(status)) {
+    throw new AppError(
+      `Cannot change status from ${current} to ${status}`,
+      400
+    );
+  }
+
+  complaint.status = status;
+  if (status === 'resolved') {
+    complaint.resolvedAt = new Date();
+  } else if (current === 'resolved') {
+    complaint.resolvedAt = null;
   }
   await complaint.save();
 

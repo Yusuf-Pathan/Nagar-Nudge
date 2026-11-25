@@ -30,11 +30,12 @@
   </button>
 </div>
 
+<div *ngIf="successMessage" class="alert alert-success py-2">{{ successMessage }}</div>
+<div *ngIf="!successMessage && errorMessage" class="alert alert-danger py-2">{{ errorMessage }}</div>
+
 <div *ngIf="loading" class="text-center py-5">
   <div class="spinner-border text-success" role="status"></div>
 </div>
-
-<div *ngIf="!loading && errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
 <div *ngIf="!loading && !errorMessage && complaints.length === 0" class="nn-card text-center text-secondary py-5">
   {{ 'ALL.EMPTY' | translate }}
@@ -51,6 +52,7 @@
           <th>{{ 'TABLE.CITIZEN' | translate }}</th>
           <th>{{ 'TABLE.ASSIGNEE' | translate }}</th>
           <th>{{ 'TABLE.DATE' | translate }}</th>
+          <th class="text-end">{{ 'TABLE.ACTION' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -64,6 +66,53 @@
           <td class="small">{{ c.user?.name || '—' }}</td>
           <td class="small">{{ c.assignee?.name || '—' }}</td>
           <td class="small text-secondary">{{ c.submittedAt | date: 'mediumDate' }}</td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-1 flex-wrap justify-content-end">
+              <button
+                *ngIf="canStart(c)"
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                [disabled]="savingId === c.id"
+                (click)="changeStatus(c, Status.IN_PROGRESS)"
+                [attr.aria-label]="'ACTIONS.START' | translate"
+              >
+                <i class="bi bi-play-fill me-1"></i>{{ 'ACTIONS.START' | translate }}
+              </button>
+              <button
+                *ngIf="canResolve(c)"
+                type="button"
+                class="btn btn-success btn-sm"
+                [disabled]="savingId === c.id"
+                (click)="changeStatus(c, Status.RESOLVED)"
+                [attr.aria-label]="'ACTIONS.RESOLVE' | translate"
+              >
+                <span *ngIf="savingId === c.id" class="spinner-border spinner-border-sm"></span>
+                <ng-container *ngIf="savingId !== c.id">
+                  <i class="bi bi-check-lg me-1"></i>{{ 'ACTIONS.RESOLVE' | translate }}
+                </ng-container>
+              </button>
+              <button
+                *ngIf="canReject(c)"
+                type="button"
+                class="btn btn-outline-danger btn-sm"
+                [disabled]="savingId === c.id"
+                (click)="changeStatus(c, Status.REJECTED)"
+                [attr.aria-label]="'ACTIONS.REJECT' | translate"
+              >
+                <i class="bi bi-x-lg me-1"></i>{{ 'ACTIONS.REJECT' | translate }}
+              </button>
+              <button
+                *ngIf="canReopen(c)"
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                [disabled]="savingId === c.id"
+                (click)="changeStatus(c, Status.IN_PROGRESS)"
+                [attr.aria-label]="'ACTIONS.REOPEN' | translate"
+              >
+                <i class="bi bi-arrow-counterclockwise me-1"></i>{{ 'ACTIONS.REOPEN' | translate }}
+              </button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

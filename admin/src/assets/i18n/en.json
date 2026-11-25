@@ -52,6 +52,12 @@
     "RESOLVED": "Resolved",
     "REJECTED": "Rejected"
   },
+  "ACTIONS": {
+    "START": "Start",
+    "RESOLVE": "Resolve",
+    "REJECT": "Reject",
+    "REOPEN": "Reopen"
+  },
   "TABLE": {
     "TITLE": "Complaint",
     "CATEGORY": "Category",

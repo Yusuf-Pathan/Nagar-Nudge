@@ -48,35 +48,69 @@
           <td><app-status-badge [status]="c.status"></app-status-badge></td>
           <td class="small">{{ c.assignee?.name || '—' }}</td>
           <td>
-            <div class="d-flex gap-2 align-items-center">
-              <select
-                class="form-select form-select-sm"
-                style="min-width: 160px"
-                [disabled]="savingId === c.id"
-                #assigneeSelect
-              >
-                <option value="" disabled selected>{{ 'ASSIGN.SELECT_USER' | translate }}</option>
-                <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>
-              </select>
-              <button
-                type="button"
-                class="btn nn-btn-primary btn-sm"
-                [disabled]="savingId === c.id"
-                (click)="assign(c, assigneeSelect)"
-              >
-                <span *ngIf="savingId === c.id" class="spinner-border spinner-border-sm"></span>
-                <span *ngIf="savingId !== c.id">{{ 'ASSIGN.ASSIGN' | translate }}</span>
-              </button>
-              <button
-                *ngIf="c.assignedTo"
-                type="button"
-                class="btn btn-outline-secondary btn-sm"
-                [disabled]="savingId === c.id"
-                (click)="unassign(c)"
-                [attr.aria-label]="'ASSIGN.UNASSIGN' | translate"
-              >
-                <i class="bi bi-x-lg"></i>
-              </button>
+            <div class="d-flex gap-2 align-items-center flex-wrap">
+              <!-- Assign controls (only when not already terminal) -->
+              <ng-container *ngIf="!canReopen(c)">
+                <select
+                  class="form-select form-select-sm"
+                  style="min-width: 150px; width: auto;"
+                  [disabled]="savingId === c.id"
+                  #assigneeSelect
+                >
+                  <option value="" disabled selected>{{ 'ASSIGN.SELECT_USER' | translate }}</option>
+                  <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>
+                </select>
+                <button
+                  type="button"
+                  class="btn nn-btn-primary btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="assign(c, assigneeSelect)"
+                >
+                  <span *ngIf="savingId === c.id" class="spinner-border spinner-border-sm"></span>
+                  <span *ngIf="savingId !== c.id">{{ 'ASSIGN.ASSIGN' | translate }}</span>
+                </button>
+                <button
+                  *ngIf="c.assignedTo"
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="unassign(c)"
+                  [attr.aria-label]="'ASSIGN.UNASSIGN' | translate"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </ng-container>
+
+              <!-- Status controls -->
+              <div class="d-flex gap-1">
+                <button
+                  *ngIf="canResolve(c)"
+                  type="button"
+                  class="btn btn-success btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="changeStatus(c, Status.RESOLVED)"
+                >
+                  <i class="bi bi-check-lg me-1"></i>{{ 'ACTIONS.RESOLVE' | translate }}
+                </button>
+                <button
+                  *ngIf="canReject(c)"
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="changeStatus(c, Status.REJECTED)"
+                >
+                  <i class="bi bi-x-lg me-1"></i>{{ 'ACTIONS.REJECT' | translate }}
+                </button>
+                <button
+                  *ngIf="canReopen(c)"
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  [disabled]="savingId === c.id"
+                  (click)="changeStatus(c, Status.IN_PROGRESS)"
+                >
+                  <i class="bi bi-arrow-counterclockwise me-1"></i>{{ 'ACTIONS.REOPEN' | translate }}
+                </button>
+              </div>
             </div>
           </td>
         </tr>

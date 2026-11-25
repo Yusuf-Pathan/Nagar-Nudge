@@ -38,7 +38,8 @@ docs/angular16-integration.md
 | GET | /complaints/dashboard | Admin dashboard: stats, 6-month trend, recent |
 | GET | /complaints | List all complaints (filters: status, category, search, assigned, page, limit) |
 | GET | /complaints/:id | Complaint detail |
-| PATCH | /complaints/:id/assign | Assign / unassign (`assigneeId`: uuid or null) |
+| PATCH | /complaints/:id/assign | Assign / unassign (`assigneeId`: uuid or null); pending → in_progress |
+| PATCH | /complaints/:id/status | Change status (`pending` \| `in_progress` \| `resolved` \| `rejected`) |
 | GET | /complaints/assignable-users | Users available as assignees |
 | GET/POST | /categories | List / create categories |
 | PATCH/DELETE | /categories/:id | Update / delete category |

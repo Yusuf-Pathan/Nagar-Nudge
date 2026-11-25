@@ -1,0 +1,138 @@
+<div class="nn-page-head mb-4">
+  <h2 class="fw-bold mb-1">{{ 'CATEGORIES.PAGE_TITLE' | translate }}</h2>
+  <p class="text-secondary mb-0">{{ 'CATEGORIES.SUBTITLE' | translate }}</p>
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success py-2">{{ successMessage }}</div>
+<div *ngIf="!successMessage && errorMessage" class="alert alert-danger py-2">{{ errorMessage }}</div>
+
+<div class="row g-4">
+  <!-- Form card -->
+  <div class="col-lg-4">
+    <div class="nn-card">
+      <h3 class="nn-card-title">
+        {{ isEdit ? ('CATEGORIES.EDIT' | translate) : ('CATEGORIES.NEW' | translate) }}
+      </h3>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <label class="form-label small fw-semibold">{{ 'CATEGORIES.NAME' | translate }}</label>
+        <div class="input-group nn-input mb-1">
+          <span class="input-group-text"><i class="bi bi-tag"></i></span>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            [placeholder]="'CATEGORIES.NAME_PLACEHOLDER' | translate"
+            [class.is-invalid]="fieldError('name')"
+          />
+        </div>
+        <small *ngIf="fieldError('name') as key" class="text-danger d-block mb-2">
+          {{ key | translate }}
+        </small>
+
+        <label class="form-label small fw-semibold mt-2">{{ 'CATEGORIES.CODE' | translate }}</label>
+        <div class="input-group nn-input mb-1">
+          <span class="input-group-text"><i class="bi bi-code"></i></span>
+          <input
+            type="text"
+            class="form-control text-uppercase"
+            formControlName="code"
+            [placeholder]="'CATEGORIES.CODE_PLACEHOLDER' | translate"
+            [class.is-invalid]="fieldError('code')"
+          />
+        </div>
+        <small class="text-secondary d-block mb-2">{{ 'CATEGORIES.CODE_HINT' | translate }}</small>
+
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="catActive" formControlName="active" />
+          <label class="form-check-label small" for="catActive">{{ 'CATEGORIES.ACTIVE' | translate }}</label>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn nn-btn-primary flex-grow-1" [disabled]="saving">
+            <span *ngIf="saving" class="spinner-border spinner-border-sm me-1"></span>
+            {{ isEdit ? ('CATEGORIES.SAVE' | translate) : ('CATEGORIES.CREATE' | translate) }}
+          </button>
+          <button
+            *ngIf="isEdit"
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="cancelEdit()"
+          >
+            {{ 'CATEGORIES.CANCEL' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- List card -->
+  <div class="col-lg-8">
+    <div class="nn-card p-0 overflow-hidden">
+      <div class="p-3 pb-0">
+        <h3 class="nn-card-title mb-0">{{ 'CATEGORIES.LIST' | translate }}</h3>
+      </div>
+
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-success" role="status"></div>
+      </div>
+
+      <div *ngIf="!loading && categories.length === 0" class="text-center text-secondary py-5">
+        {{ 'CATEGORIES.EMPTY' | translate }}
+      </div>
+
+      <div *ngIf="!loading && categories.length" class="table-responsive">
+        <table class="table nn-table align-middle">
+          <thead>
+            <tr>
+              <th>{{ 'TABLE.NAME' | translate }}</th>
+              <th>{{ 'TABLE.CODE' | translate }}</th>
+              <th>{{ 'TABLE.COMPLAINTS' | translate }}</th>
+              <th>{{ 'TABLE.STATUS' | translate }}</th>
+              <th class="text-end">{{ 'TABLE.ACTION' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of categories">
+              <td class="fw-semibold">{{ c.name }}</td>
+              <td><code>{{ c.code }}</code></td>
+              <td>{{ c.complaintCount ?? 0 | number }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-sm p-0 border-0 bg-transparent"
+                  (click)="toggleActive(c)"
+                  [attr.aria-label]="'Toggle active'"
+                >
+                  <span class="nn-chip" [class.nn-chip-off]="!c.active">
+                    {{ (c.active ? 'CATEGORIES.STATUS_ACTIVE' : 'CATEGORIES.STATUS_INACTIVE') | translate }}
+                  </span>
+                </button>
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm"
+                    (click)="startEdit(c)"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm"
+                    [disabled]="deletingId === c.id"
+                    (click)="remove(c)"
+                  >
+                    <span *ngIf="deletingId === c.id" class="spinner-border spinner-border-sm"></span>
+                    <i *ngIf="deletingId !== c.id" class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

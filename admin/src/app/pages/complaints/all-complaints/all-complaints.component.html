@@ -1,0 +1,99 @@
+<div class="nn-page-head d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+  <div>
+    <h2 class="fw-bold mb-1">{{ 'ALL.TITLE' | translate }}</h2>
+    <p class="text-secondary mb-0">{{ 'ALL.SUBTITLE' | translate }}</p>
+  </div>
+  <form class="d-flex gap-2" (submit)="$event.preventDefault(); onSearch()">
+    <input
+      type="search"
+      class="form-control"
+      style="min-width: 220px"
+      [placeholder]="'ALL.SEARCH' | translate"
+      [(ngModel)]="search"
+      name="search"
+    />
+    <button type="submit" class="btn nn-btn-outline px-3">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+</div>
+
+<div class="nn-pills mb-4">
+  <button
+    *ngFor="let f of filters"
+    type="button"
+    class="nn-pill"
+    [class.active]="activeFilter === f"
+    (click)="setFilter(f)"
+  >
+    {{ 'STATUS.' + (f | uppercase) | translate }}
+  </button>
+</div>
+
+<div *ngIf="loading" class="text-center py-5">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<div *ngIf="!loading && errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<div *ngIf="!loading && !errorMessage && complaints.length === 0" class="nn-card text-center text-secondary py-5">
+  {{ 'ALL.EMPTY' | translate }}
+</div>
+
+<div *ngIf="!loading && complaints.length" class="nn-card p-0 overflow-hidden">
+  <div class="table-responsive">
+    <table class="table nn-table align-middle">
+      <thead>
+        <tr>
+          <th>{{ 'TABLE.TITLE' | translate }}</th>
+          <th>{{ 'TABLE.CATEGORY' | translate }}</th>
+          <th>{{ 'TABLE.STATUS' | translate }}</th>
+          <th>{{ 'TABLE.CITIZEN' | translate }}</th>
+          <th>{{ 'TABLE.ASSIGNEE' | translate }}</th>
+          <th>{{ 'TABLE.DATE' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of complaints">
+          <td>
+            <div class="fw-semibold">{{ c.title }}</div>
+            <div class="small text-secondary" *ngIf="c.address">{{ c.address | truncate:40 }}</div>
+          </td>
+          <td><span class="nn-chip">{{ c.categoryName || c.category }}</span></td>
+          <td><app-status-badge [status]="c.status"></app-status-badge></td>
+          <td class="small">{{ c.user?.name || '—' }}</td>
+          <td class="small">{{ c.assignee?.name || '—' }}</td>
+          <td class="small text-secondary">{{ c.submittedAt | date: 'mediumDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div
+    *ngIf="meta && meta.totalPages > 1"
+    class="d-flex justify-content-between align-items-center p-3 border-top"
+  >
+    <small class="text-secondary">
+      {{ 'ALL.SHOWING' | translate:{ page: page, total: meta.totalPages, count: meta.total } }}
+    </small>
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="page <= 1"
+        (click)="setPage(page - 1)"
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="page >= (meta.totalPages || 1)"
+        (click)="setPage(page + 1)"
+      >
+        ›
+      </button>
+    </div>
+  </div>
+</div>

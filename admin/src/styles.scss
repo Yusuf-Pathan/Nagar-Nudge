@@ -1,1 +1,266 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap");
+
+// Design tokens
+$green: #1b7a3e;
+$green-dark: #0f5c2c;
+$green-light: #e8f5ec;
+$ink: #17313f;
+$muted: #5d6b72;
+$border: #dfe9e2;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", "Noto Sans Devanagari", "Segoe UI", sans-serif;
+  color: $ink;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, #e3f4e8 0%, transparent 40%),
+    linear-gradient(180deg, #f7fbf8 0%, #eef7f1 100%);
+  background-attachment: fixed;
+  margin: 0;
+}
+
+// Buttons
+.nn-btn-primary {
+  background: linear-gradient(135deg, $green, $green-dark);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+
+  &:hover {
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(27, 122, 62, 0.25);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.nn-btn-outline {
+  background: #fff;
+  color: $green;
+  border: 1px solid $green;
+  border-radius: 10px;
+  font-weight: 600;
+
+  &:hover {
+    background: $green-light;
+    color: $green-dark;
+  }
+}
+
+// Cards
+.nn-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid $border;
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 6px 18px rgba(20, 60, 35, 0.05);
+}
+
+.nn-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.nn-view-all {
+  color: $green;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.nn-link {
+  color: #1b7a3e;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.nn-input {
+  .input-group-text {
+    background: #fff;
+    color: #5d6b72;
+  }
+
+  .form-control {
+    border-left: none;
+    padding: 10px 12px;
+  }
+
+  .form-control:focus {
+    box-shadow: none;
+    border-color: #1b7a3e;
+  }
+}
+
+.nn-page-head h2 {
+  color: #17313f;
+  font-size: 30px;
+}
+
+@media (max-width: 575.98px) {
+  .nn-page-head h2 {
+    font-size: 24px;
+  }
+}
+
+// Status badges
+.nn-status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.nn-status-pending {
+  background: #fff4d6;
+  color: #8a6100;
+}
+
+.nn-status-in_progress {
+  background: #e3f0ff;
+  color: #1459a6;
+}
+
+.nn-status-resolved {
+  background: #d7f0df;
+  color: #1b7a3e;
+}
+
+.nn-status-rejected {
+  background: #fde2e1;
+  color: #b42318;
+}
+
+// Filter pills
+.nn-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nn-pill {
+  border: 1px solid $border;
+  background: #fff;
+  color: $muted;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &.active {
+    background: $green;
+    border-color: $green;
+    color: #fff;
+  }
+}
+
+// Admin stat cards
+.nn-stat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  .nn-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .nn-stat-label {
+    font-size: 13px;
+    color: $muted;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .nn-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: $ink;
+    line-height: 1.1;
+    margin: 2px 0 0;
+  }
+}
+
+.nn-stat-total .nn-stat-icon {
+  background: #e8f5ec;
+  color: $green;
+}
+
+.nn-stat-pending .nn-stat-icon {
+  background: #fff4d6;
+  color: #8a6100;
+}
+
+.nn-stat-progress .nn-stat-icon {
+  background: #e3f0ff;
+  color: #1459a6;
+}
+
+.nn-stat-resolved .nn-stat-icon {
+  background: #d7f0df;
+  color: $green;
+}
+
+// Tables
+.nn-table {
+  margin-bottom: 0;
+
+  thead th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: $muted;
+    font-weight: 600;
+    border-bottom: 1px solid $border;
+    background: #f7fbf8;
+  }
+
+  tbody td {
+    vertical-align: middle;
+    border-color: $border;
+    font-size: 14px;
+  }
+}
+
+// Category chips
+.nn-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  background: $green-light;
+  color: $green-dark;
+}
+
+.nn-chip-off {
+  background: #f1f3f5;
+  color: $muted;
+}

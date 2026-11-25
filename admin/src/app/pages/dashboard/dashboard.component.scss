@@ -1,0 +1,59 @@
+$green: #1b7a3e;
+$green-dark: #0f5c2c;
+$muted: #5d6b72;
+$border: #dfe9e2;
+
+.nn-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.nn-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.nn-dot-total {
+  background: $green;
+}
+
+.nn-dot-resolved {
+  background: #7fc497;
+}
+
+.nn-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.nn-grid {
+  stroke: $border;
+  stroke-width: 1;
+}
+
+.nn-axis {
+  fill: $muted;
+  font-size: 11px;
+  font-family: inherit;
+}
+
+.nn-line {
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nn-line-total {
+  stroke: $green;
+}
+
+.nn-line-resolved {
+  stroke: #7fc497;
+  stroke-dasharray: 6 4;
+}

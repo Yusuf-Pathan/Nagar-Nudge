@@ -1,0 +1,47 @@
+<h3 class="fw-bold mb-1">{{ 'AUTH.LOGIN.TITLE' | translate }}</h3>
+<p class="text-secondary small mb-4">{{ 'AUTH.LOGIN.SUBTITLE' | translate }}</p>
+
+<div *ngIf="errorMessage" class="alert alert-danger py-2 small">{{ errorMessage }}</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+  <!-- Mobile or email -->
+  <div class="input-group nn-input mb-1">
+    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="identifier"
+      autocomplete="username"
+      [placeholder]="'AUTH.LOGIN.IDENTIFIER' | translate"
+      [class.is-invalid]="fieldError('identifier')"
+    />
+  </div>
+  <small *ngIf="fieldError('identifier') as key" class="text-danger d-block mb-2">
+    {{ key | translate }}
+  </small>
+
+  <!-- Password -->
+  <div class="input-group nn-input mb-1 mt-2">
+    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      class="form-control"
+      formControlName="password"
+      autocomplete="current-password"
+      [placeholder]="'AUTH.LOGIN.PASSWORD' | translate"
+      [class.is-invalid]="fieldError('password')"
+    />
+    <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()" [attr.aria-label]="'Toggle password'">
+      <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+    </button>
+  </div>
+  <small *ngIf="fieldError('password') as key" class="text-danger d-block mb-2">
+    {{ key | translate }}
+  </small>
+
+  <button type="submit" class="btn nn-btn-primary w-100 py-2 mt-3" [disabled]="loading">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+    {{ 'AUTH.LOGIN.SUBMIT' | translate }}
+  </button>
+</form>

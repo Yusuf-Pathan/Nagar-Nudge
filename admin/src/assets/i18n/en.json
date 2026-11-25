@@ -1,0 +1,126 @@
+{
+  "NAV": {
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "ADMIN_PORTAL": "Admin Portal"
+  },
+  "FOOTER": {
+    "TAGLINE": "Complaint management control panel.",
+    "RIGHTS": "All rights reserved."
+  },
+  "AUTH": {
+    "BANNER": {
+      "TAGLINE": "Admin Control Panel",
+      "SUBTITLE": "Manage complaints, assignments and categories in one place.",
+      "POINT_1": "Monitor all citizen complaints",
+      "POINT_2": "Assign work to field teams",
+      "POINT_3": "Keep categories up to date"
+    },
+    "LOGIN": {
+      "TITLE": "Welcome Back!",
+      "SUBTITLE": "Login to the Nagar Nudge admin portal",
+      "IDENTIFIER": "Mobile Number or Email",
+      "PASSWORD": "Password",
+      "SUBMIT": "Login"
+    },
+    "ERRORS": {
+      "REQUIRED": "This field is required",
+      "IDENTIFIER": "Enter a valid email or 10-digit mobile number",
+      "PASSWORD_MIN": "Password must be at least 6 characters"
+    }
+  },
+  "APP": {
+    "SEARCH": "Search complaints...",
+    "NOTIFICATIONS": "Notifications",
+    "SIDEBAR": {
+      "DASHBOARD": "Dashboard",
+      "ALL_COMPLAINTS": "All Complaints",
+      "ASSIGN": "Assign Complaints",
+      "CATEGORIES": "Manage Categories"
+    },
+    "MOBILE": {
+      "DASHBOARD": "Home",
+      "ALL": "Complaints",
+      "ASSIGN": "Assign",
+      "CATEGORIES": "Categories"
+    }
+  },
+  "STATUS": {
+    "ALL": "All",
+    "PENDING": "Pending",
+    "IN_PROGRESS": "In Progress",
+    "RESOLVED": "Resolved",
+    "REJECTED": "Rejected"
+  },
+  "TABLE": {
+    "TITLE": "Complaint",
+    "CATEGORY": "Category",
+    "STATUS": "Status",
+    "DATE": "Date",
+    "CITIZEN": "Citizen",
+    "ASSIGNEE": "Assignee",
+    "ACTION": "Action",
+    "NAME": "Name",
+    "CODE": "Code",
+    "COMPLAINTS": "Complaints"
+  },
+  "DASHBOARD": {
+    "TITLE": "Admin Dashboard",
+    "SUBTITLE": "Overview of complaint management",
+    "TOTAL": "Total Complaints",
+    "PENDING": "Pending",
+    "IN_PROGRESS": "In Progress",
+    "RESOLVED": "Resolved",
+    "TREND": "Complaint Trend",
+    "LEGEND_TOTAL": "Total",
+    "LEGEND_RESOLVED": "Resolved",
+    "RECENT": "Recent Complaints",
+    "VIEW_ALL": "View All",
+    "NO_RECENT": "No complaints yet."
+  },
+  "ALL": {
+    "TITLE": "All Complaints",
+    "SUBTITLE": "Browse and filter every complaint in the system.",
+    "SEARCH": "Search title, address, category...",
+    "EMPTY": "No complaints match your filters.",
+    "SHOWING": "Page {{page}} of {{total}} · {{count}} total"
+  },
+  "ASSIGN": {
+    "TITLE": "Assign Complaints",
+    "SUBTITLE": "Assign complaints to field workers or leave them unassigned.",
+    "FILTER": {
+      "UNASSIGNED": "Unassigned",
+      "ASSIGNED": "Assigned",
+      "ALL": "All"
+    },
+    "EMPTY": "No complaints in this view.",
+    "SELECT_USER": "Select user",
+    "ASSIGN": "Assign",
+    "UNASSIGN": "Unassign"
+  },
+  "CATEGORIES": {
+    "PAGE_TITLE": "Manage Categories",
+    "SUBTITLE": "Create, rename, activate or remove complaint categories.",
+    "NEW": "New Category",
+    "EDIT": "Edit Category",
+    "NAME": "Display Name",
+    "NAME_PLACEHOLDER": "e.g. Parks",
+    "CODE": "Code",
+    "CODE_PLACEHOLDER": "e.g. PARKS",
+    "CODE_HINT": "Leave blank to derive from name. Used on complaint records.",
+    "ACTIVE": "Active",
+    "CREATE": "Create",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "LIST": "Categories",
+    "EMPTY": "No categories yet.",
+    "STATUS_ACTIVE": "Active",
+    "STATUS_INACTIVE": "Inactive",
+    "ERRORS": {
+      "NAME_REQUIRED": "Name is required",
+      "NAME_MIN": "Name must be at least 2 characters",
+      "NAME_MAX": "Name must be at most 50 characters",
+      "CODE_PATTERN": "Code may only contain letters, numbers and underscores"
+    }
+  }
+}

@@ -1,7 +1,8 @@
 import { Language } from '../enums/language.enum';
 
 // Change this to your backend URL
-export const API_BASE_URL = 'http://localhost:3000/api/v1';
+// export const API_BASE_URL = 'http://localhost:3000/api/v1';
+export const API_BASE_URL = 'https://nagar-nudge.onrender.com/api/v1';
 
 export const TOKEN_KEY = 'nn_admin_token';
 export const USER_KEY = 'nn_admin_user';

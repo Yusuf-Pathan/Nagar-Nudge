@@ -52,9 +52,37 @@
   "FOOTER": {
     "TAGLINE": "Building a cleaner, safer and smarter city together.",
     "ABOUT": "About Us",
-    "HELP": "Help",
-    "CONTACT": "Contact",
     "RIGHTS": "All rights reserved."
+  },
+  "ABOUT": {
+    "TITLE": "About Nagar Nudge",
+    "TAGLINE": "Your city. Your voice. Your change.",
+    "INTRO": "Nagar Nudge is a civic complaint management platform that helps citizens report local issues — roads, streetlights, garbage, water supply, drainage and more — and track them until they are resolved. Municipal teams and admins use the same platform to assign, progress and close complaints, so every report moves from a citizen's phone to a real fix on the ground.",
+    "MISSION": {
+      "TITLE": "Our Mission",
+      "BODY": "Make it simple for every resident to raise civic issues and easy for city teams to act on them — with transparent status updates from pending to in progress to resolved."
+    },
+    "VISION": {
+      "TITLE": "Our Vision",
+      "BODY": "A cleaner, safer and smarter city where citizens and local government work together, and no complaint is left unattended."
+    },
+    "HOW": {
+      "TITLE": "How Nagar Nudge Works"
+    },
+    "WEBSITE": {
+      "TITLE": "Website Details",
+      "NAME": "Website",
+      "NAME_VALUE": "Nagar Nudge",
+      "PLATFORM": "Platform",
+      "PLATFORM_VALUE": "Civic complaint management",
+      "FOCUS": "Focus areas",
+      "FOCUS_VALUE": "Roads · Streetlights · Garbage · Water · Drainage",
+      "USERS": "Built for",
+      "USERS_VALUE": "Citizens, field teams & administrators"
+    },
+    "FOLLOW": "Follow us on Instagram for updates:",
+    "INSTAGRAM": "Instagram",
+    "BACK_HOME": "Back to Home"
   },
   "AUTH": {
     "TAB_LOGIN": "Login",

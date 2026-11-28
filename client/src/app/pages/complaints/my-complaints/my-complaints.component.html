@@ -42,7 +42,7 @@
         <app-status-badge [status]="c.status"></app-status-badge>
       </div>
       <p class="small text-secondary mb-1">
-        {{ 'CATEGORIES.' + c.category | translate }} · {{ 'MY.SUBMITTED_ON' | translate }}
+        {{ c.categoryName || ('CATEGORIES.' + c.category | translate) }} · {{ 'MY.SUBMITTED_ON' | translate }}
         {{ c.submittedAt | date: 'mediumDate' }}
       </p>
       <p *ngIf="c.description" class="small mb-0 nn-complaint-desc">{{ c.description }}</p>

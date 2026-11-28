@@ -34,6 +34,7 @@
   "CATEGORIES": {
     "TITLE": "Categories",
     "VIEW_ALL": "View All",
+    "EMPTY": "No categories available yet.",
     "ROADS": "Roads",
     "STREETLIGHTS": "Streetlights",
     "GARBAGE": "Garbage",

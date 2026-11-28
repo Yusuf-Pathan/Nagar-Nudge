@@ -1,5 +1,5 @@
 import { Language } from '../enums/language.enum';
-import { CategoryItem, StepItem } from '../models/index';
+import { StepItem } from '../models/index';
 
 // Change this to your backend URL
 // export const API_BASE_URL = 'http://localhost:3000/api/v1';
@@ -33,15 +33,6 @@ export const HOW_IT_WORKS_STEPS: StepItem[] = [
     descKey: 'HOW_IT_WORKS.STEPS.RESOLVE.DESC',
     icon: 'bi-check-circle-fill'
   }
-];
-
-export const POPULAR_CATEGORIES: CategoryItem[] = [
-  { key: 'ROADS', icon: 'bi-cone-striped', colorClass: 'cat-roads' },
-  { key: 'STREETLIGHTS', icon: 'bi-lightbulb-fill', colorClass: 'cat-light' },
-  { key: 'GARBAGE', icon: 'bi-trash3-fill', colorClass: 'cat-garbage' },
-  { key: 'WATER', icon: 'bi-droplet-fill', colorClass: 'cat-water' },
-  { key: 'DRAINAGE', icon: 'bi-water', colorClass: 'cat-drain' },
-  // { key: 'OTHERS', icon: 'bi-three-dots', colorClass: 'cat-others' }
 ];
 
 export const USER_KEY = 'nn_user';

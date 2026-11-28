@@ -19,7 +19,7 @@ export const LANGUAGE_OPTIONS: { code: Language; label: string }[] = [
  * Create one at https://account.mapbox.com/access-tokens/
  * Do not commit real tokens — use an env override or local uncommitted edit.
  */
-export const MAPBOX_TOKEN = '';
+export const MAPBOX_TOKEN = 'pk.eyJ1IjoicGF0aGFucDU3MCIsImEiOiJjbXgwajFoYXQwY3FpM2FyOGVyM3pvbjkxIn0.9EzFWeN4xIG633c_MRQ8Hw';
 
 /** Default map view (Ahmedabad) */
 export const MAP_CENTER: [number, number] = [72.5714, 23.0225];

@@ -1,0 +1,36 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="580 490 710 620" xmlns:c2pa="http://c2pa.org/manifest">
+  <!-- Left circular arrow (concentric with the pin head, equal gap) -->
+  <path d="M700,958 A330,330 0 0 1 721,472" fill="none" stroke="#1f1f1f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M687,478 L721,472 L709,505" fill="none" stroke="#1f1f1f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right circular arrow (concentric with the pin head, equal gap) -->
+  <path d="M1146,472 A330,330 0 0 1 1167,958" fill="none" stroke="#1f1f1f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1201,949 L1167,958 L1176,924" fill="none" stroke="#1f1f1f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Map pin -->
+  <path d="M933,502 C1040,502 1157,590 1157,725 C1157,870 1010,1020 935,1097 C860,1020 710,870 710,725 C710,590 826,502 933,502 Z" fill="#111111"/>
+
+  <!-- Inner white circle -->
+  <circle cx="931" cy="731" r="182" fill="#ffffff"/>
+
+  <!-- Buildings -->
+  <g fill="#2f3ce6">
+    <path d="M810,795 L810,742 L824,735 L824,727 L858,712 L858,731 L880,731 L880,805 Q845,790 810,795 Z"/>
+    <path d="M890,690 L908,681 L908,670 L921,660 L982,641 L982,820 Q940,830 890,805 Z"/>
+    <path d="M988,820 L988,720 L1008,720 L1010,702 L1036,712 L1038,722 L1057,732 L1057,780 Q1025,808 988,820 Z"/>
+  </g>
+
+  <!-- Windows -->
+  <g fill="#ffffff">
+    <rect x="865" y="750" width="7" height="11" rx="1"/>
+    <rect x="865" y="766" width="7" height="11" rx="1"/>
+    <rect x="902" y="733" width="9" height="13" rx="1"/>
+    <rect x="902" y="768" width="9" height="13" rx="1"/>
+    <rect x="902" y="790" width="9" height="14" rx="1"/>
+    <rect x="958" y="703" width="9" height="14" rx="1"/>
+  </g>
+
+  <!-- Green waves -->
+  <path d="M782,808 Q835,792 884,808 Q840,800 782,818 Z" fill="#1b8c52"/>
+  <path d="M782,822 Q880,800 1085,752 Q1045,835 930,867 Q850,862 782,822 Z" fill="#1b8c52"/>
+</svg>

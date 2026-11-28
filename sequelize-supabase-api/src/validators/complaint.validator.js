@@ -4,7 +4,7 @@ const { COMPLAINT_CATEGORIES, COMPLAINT_STATUSES } = require('../constants/compl
 exports.create = Joi.object({
   title: Joi.string().trim().min(3).max(150).required(),
   description: Joi.string().trim().max(2000).allow('').optional(),
-  category: Joi.string().trim().max(30).required(),
+  category: Joi.string().trim().min(2).max(30).required(),
   latitude: Joi.number().min(-90).max(90).required(),
   longitude: Joi.number().min(-180).max(180).required(),
   address: Joi.string().trim().max(255).allow('').optional(),

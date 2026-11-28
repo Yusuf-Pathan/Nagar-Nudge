@@ -9,8 +9,7 @@ const auth = require('../middlewares/auth');
  * /categories:
  *   get:
  *     tags: [Categories]
- *     summary: List complaint categories
- *     security: [{ bearerAuth: [] }]
+ *     summary: List complaint categories (public; each item includes code)
  *     parameters:
  *       - in: query
  *         name: active
@@ -22,10 +21,9 @@ const auth = require('../middlewares/auth');
  *         name: limit
  *         schema: { type: integer, default: 50, maximum: 50 }
  *     responses:
- *       200: { description: Paginated categories }
- *       401: { description: Not authenticated }
+ *       200: { description: Paginated categories with id, name, code, active }
  */
-router.get('/', auth, validate(v.listQuery, 'query'), c.list);
+router.get('/', validate(v.listQuery, 'query'), c.list);
 
 /**
  * @openapi

@@ -15,7 +15,16 @@
     <!-- Category -->
     <section class="nn-card mb-4">
       <h6 class="fw-bold mb-3">{{ "RAISE.SELECT_CATEGORY" | translate }}</h6>
-      <div class="nn-cat-grid">
+
+      <div *ngIf="categoriesLoading" class="text-center py-3">
+        <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+      </div>
+
+      <div *ngIf="!categoriesLoading && categories.length === 0" class="text-secondary small">
+        {{ "CATEGORIES.EMPTY" | translate }}
+      </div>
+
+      <div class="nn-cat-grid" *ngIf="!categoriesLoading && categories.length">
         <button
           *ngFor="let cat of categories"
           type="button"
@@ -28,9 +37,7 @@
             <i class="bi bi-check"></i>
           </span>
           <i class="bi {{ cat.icon }} nn-cat-icon {{ cat.colorClass }}"></i>
-          <span class="small fw-semibold">{{
-            "CATEGORIES." + cat.key | translate
-          }}</span>
+          <span class="small fw-semibold">{{ cat.name }}</span>
         </button>
       </div>
       <small

@@ -13,6 +13,8 @@ export interface ComplaintMedia {
 export interface Complaint {
   id: string;
   category: string;
+  categoryCode?: string;
+  categoryName?: string;
   title: string;
   description?: string | null;
   status: ComplaintStatus;
@@ -28,6 +30,8 @@ export interface ResolvedComplaintDto {
   id: string;
   title: string;
   category: string;
+  categoryCode?: string;
+  categoryName?: string;
   address: string | null;
   coverImage: string | null;
   resolvedAt: string;

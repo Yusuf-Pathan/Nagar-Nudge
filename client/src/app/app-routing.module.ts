@@ -21,6 +21,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pages/auth/auth.module').then((m) => m.AuthModule),
       },
+      {
+        path: 'about',
+        loadChildren: () =>
+          import('./pages/about/about.module').then((m) => m.AboutModule),
+      },
     ],
   },
 

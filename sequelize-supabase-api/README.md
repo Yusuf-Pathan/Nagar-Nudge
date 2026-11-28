@@ -41,7 +41,7 @@ docs/angular16-integration.md
 | PATCH | /complaints/:id/assign | Assign / unassign (`assigneeId`: uuid or null); pending → in_progress |
 | PATCH | /complaints/:id/status | Change status (`pending` \| `in_progress` \| `resolved` \| `rejected`) |
 | GET | /complaints/assignable-users | Users available as assignees |
-| GET/POST | /categories | List / create categories |
+| GET/POST | /categories | List (public, includes `code`) / create categories |
 | PATCH/DELETE | /categories/:id | Update / delete category |
 | GET | /users | list (paginated) / create |
 | GET/PATCH/DELETE | /users/:id | read (with tasks) / update / delete |

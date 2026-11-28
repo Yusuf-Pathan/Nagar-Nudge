@@ -1,0 +1,40 @@
+.nn-about-hero {
+  padding-top: 32px;
+}
+
+.nn-about-section {
+  margin-top: 24px;
+}
+
+.nn-about-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #f7fbf8;
+  border: 1px solid #dfe9e2;
+  border-radius: 12px;
+  padding: 14px;
+  height: 100%;
+}
+
+.nn-about-step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1b7a3e;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nn-about-fact {
+  background: #f7fbf8;
+  border: 1px solid #dfe9e2;
+  border-radius: 12px;
+  padding: 14px 16px;
+  height: 100%;
+}

@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
   readonly year = new Date().getFullYear();
+  readonly instagramUrl =
+    'https://www.instagram.com/nagar_nudge?gwpx=MTZkMWkyajZibHI3MA%3D%3D&utm_source=qr';
 }

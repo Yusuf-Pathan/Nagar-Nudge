@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { POPULAR_CATEGORIES } from '../../../core/constants/app.constants';
 import { CategoryItem, GeoPoint } from '../../../core/models';
+import { CategoryService } from '../../../core/services/category.service';
 import { ComplaintService } from '../../../core/services/complaint.service';
 
 type LocationStatus = 'idle' | 'loading' | 'error';
@@ -12,8 +12,8 @@ type LocationStatus = 'idle' | 'loading' | 'error';
   templateUrl: './raise-complaint.component.html',
   styleUrls: ['./raise-complaint.component.scss'],
 })
-export class RaiseComplaintComponent {
-  readonly categories: CategoryItem[] = POPULAR_CATEGORIES;
+export class RaiseComplaintComponent implements OnInit {
+  categories: CategoryItem[] = [];
 
   form = this.fb.nonNullable.group({
     category: ['', Validators.required],
@@ -29,20 +29,36 @@ export class RaiseComplaintComponent {
   locationStatus: LocationStatus = 'idle';
   submitted = false;
   loading = false;
+  categoriesLoading = true;
   successMessage = '';
   errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private complaintService: ComplaintService,
+    private categoryService: CategoryService,
   ) {}
+
+  ngOnInit(): void {
+    this.categoryService.getActiveTiles().subscribe({
+      next: (list) => {
+        this.categories = list;
+        this.categoriesLoading = false;
+      },
+      error: () => {
+        this.categories = [];
+        this.categoriesLoading = false;
+      },
+    });
+  }
 
   get selectedCategory(): string {
     return this.form.controls.category.value;
   }
 
-  selectCategory(key: string): void {
-    this.form.controls.category.setValue(key);
+  /** Stores the category **code** (what the API expects). */
+  selectCategory(code: string): void {
+    this.form.controls.category.setValue(code);
   }
 
   useCurrentLocation(): void {
@@ -83,10 +99,11 @@ export class RaiseComplaintComponent {
 
     this.complaintService
       .createComplaint({
-        category: raw.category,
+        // category code, e.g. ROADS — validated server-side against categories table
+        category: raw.category.toUpperCase(),
         title: raw.title.trim(),
         description: raw.description.trim() || undefined,
-        location: raw.location as GeoPoint, // guaranteed by the required validator
+        location: raw.location as GeoPoint,
         media: raw.media,
       })
       .subscribe({

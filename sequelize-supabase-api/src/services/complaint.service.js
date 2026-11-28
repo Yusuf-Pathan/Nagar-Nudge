@@ -8,6 +8,7 @@ const serialize = (complaint) => ({
   title: complaint.title,
   description: complaint.description,
   category: complaint.category,
+  categoryCode: complaint.category,
   categoryName: complaint.categoryRef ? complaint.categoryRef.name : complaint.category,
   status: complaint.status,
   address: complaint.address,
@@ -51,6 +52,13 @@ const buildWhere = (query = {}) => {
 
 exports.create = async (userId, body, files = []) => {
   const { saveComplaintMedia, deleteComplaintMedia } = require('../utils/mediaStorage');
+
+  const categoryCode = String(body.category || '').trim().toUpperCase();
+  const category = await Category.findOne({ where: { code: categoryCode, active: true } });
+  if (!category) {
+    throw new AppError(`Invalid or inactive category code: ${categoryCode}`, 422);
+  }
+
   const media = await saveComplaintMedia(files);
 
   try {
@@ -58,7 +66,7 @@ exports.create = async (userId, body, files = []) => {
       userId,
       title: body.title,
       description: body.description || null,
-      category: body.category,
+      category: category.code,
       latitude: body.latitude,
       status: 'pending',
       longitude: body.longitude,
@@ -66,7 +74,10 @@ exports.create = async (userId, body, files = []) => {
       media,
     });
 
-    return serialize(complaint);
+    const fresh = await Complaint.findByPk(complaint.id, {
+      include: [{ model: Category, as: 'categoryRef', attributes: ['id', 'name', 'code'] }],
+    });
+    return serialize(fresh || complaint);
   } catch (err) {
     await deleteComplaintMedia(media);
     throw err;
@@ -123,6 +134,7 @@ exports.listResolved = async (query = {}) => {
       id: complaint.id,
       title: complaint.title,
       category: complaint.category,
+      categoryCode: complaint.category,
       categoryName: complaint.categoryRef ? complaint.categoryRef.name : complaint.category,
       address: complaint.address,
       coverImage: cover ? toPublicUrl(cover.path) : null,

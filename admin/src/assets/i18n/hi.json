@@ -34,16 +34,28 @@
     "NOTIFICATIONS": "सूचनाएं",
     "SIDEBAR": {
       "DASHBOARD": "डैशबोर्ड",
+      "MAP": "नक्शा",
       "ALL_COMPLAINTS": "सभी शिकायतें",
       "ASSIGN": "शिकायत असाइन करें",
       "CATEGORIES": "श्रेणियाँ प्रबंधित करें"
     },
     "MOBILE": {
       "DASHBOARD": "होम",
+      "MAP": "नक्शा",
       "ALL": "शिकायतें",
       "ASSIGN": "असाइन",
       "CATEGORIES": "श्रेणियाँ"
     }
+  },
+  "MAP": {
+    "TITLE": "शिकायत नक्शा",
+    "SUBTITLE": "स्थिति पिन, क्लस्टर और पॉपअप के साथ 3D शहर दृश्य।",
+    "COUNT": "नक्शे पर {{count}}",
+    "LOADING": "नक्शा लोड हो रहा है…",
+    "CLUSTERS": "क्लस्टर",
+    "NO_TOKEN_TITLE": "Mapbox टोकन आवश्यक",
+    "NO_TOKEN_BODY": "3D नक्शा चालू करने के लिए अपना निःशुल्क Mapbox access token जोड़ें। टोकन बनाएँ और यहाँ पेस्ट करें:",
+    "GET_TOKEN": "Mapbox टोकन पाएँ"
   },
   "STATUS": {
     "ALL": "सभी",

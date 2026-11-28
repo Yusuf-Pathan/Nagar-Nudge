@@ -1,0 +1,61 @@
+<div class="nn-page-head d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+  <div>
+    <h2 class="fw-bold mb-1">{{ 'MAP.TITLE' | translate }}</h2>
+    <p class="text-secondary mb-0">{{ 'MAP.SUBTITLE' | translate }}</p>
+  </div>
+  <div class="text-secondary small" *ngIf="!loading && !missingToken">
+    {{ 'MAP.COUNT' | translate: { count: visibleCount } }}
+  </div>
+</div>
+
+<!-- Missing Mapbox token -->
+<div *ngIf="missingToken" class="nn-card text-center py-5">
+  <i class="bi bi-geo-alt-fill display-4 text-success d-block mb-3"></i>
+  <h3 class="h5 fw-bold">{{ 'MAP.NO_TOKEN_TITLE' | translate }}</h3>
+  <p class="text-secondary mx-auto" style="max-width: 480px">
+    {{ 'MAP.NO_TOKEN_BODY' | translate }}
+  </p>
+  <code class="d-block mb-3">admin/src/app/core/constants/app.constants.ts → MAPBOX_TOKEN</code>
+  <a
+    class="btn nn-btn-primary"
+    href="https://account.mapbox.com/access-tokens/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {{ 'MAP.GET_TOKEN' | translate }}
+  </a>
+</div>
+
+<ng-container *ngIf="!missingToken">
+  <div class="nn-pills mb-3">
+    <button
+      *ngFor="let f of filters"
+      type="button"
+      class="nn-pill"
+      [class.active]="activeFilter === f"
+      (click)="setFilter(f)"
+    >
+      {{ f === 'all' ? ('STATUS.ALL' | translate) : ('STATUS.' + (f | uppercase) | translate) }}
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Map stays in the DOM; loading is an overlay so #mapEl is always available -->
+  <div class="nn-map-wrap nn-card p-0 overflow-hidden">
+    <div #mapEl class="nn-map" role="application" [attr.aria-label]="'MAP.TITLE' | translate"></div>
+
+    <div *ngIf="loading" class="nn-map-loading">
+      <div class="spinner-border text-success" role="status"></div>
+      <p class="text-secondary small mt-2 mb-0">{{ 'MAP.LOADING' | translate }}</p>
+    </div>
+
+    <div class="nn-map-legend">
+      <span><i class="nn-legend-dot" style="background:#f59e0b"></i>{{ 'STATUS.PENDING' | translate }}</span>
+      <span><i class="nn-legend-dot" style="background:#3b82f6"></i>{{ 'STATUS.IN_PROGRESS' | translate }}</span>
+      <span><i class="nn-legend-dot" style="background:#16a34a"></i>{{ 'STATUS.RESOLVED' | translate }}</span>
+      <span><i class="nn-legend-dot" style="background:#dc2626"></i>{{ 'STATUS.REJECTED' | translate }}</span>
+      <span class="nn-legend-cluster"><i class="nn-legend-dot nn-legend-dot-lg"></i>{{ 'MAP.CLUSTERS' | translate }}</span>
+    </div>
+  </div>
+</ng-container>

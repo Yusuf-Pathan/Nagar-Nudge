@@ -27,7 +27,7 @@ exports.listAllQuery = Joi.object({
   search: Joi.string().trim().max(100).optional(),
   assigned: Joi.string().valid('true', 'false').optional(),
   page: Joi.number().integer().min(1).default(1),
-  limit: Joi.number().integer().min(1).max(50).default(10),
+  limit: Joi.number().integer().min(1).max(500).default(10),
 }).unknown(true);
 
 exports.assign = Joi.object({

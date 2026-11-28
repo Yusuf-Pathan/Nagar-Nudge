@@ -34,16 +34,28 @@
     "NOTIFICATIONS": "Notifications",
     "SIDEBAR": {
       "DASHBOARD": "Dashboard",
+      "MAP": "Map",
       "ALL_COMPLAINTS": "All Complaints",
       "ASSIGN": "Assign Complaints",
       "CATEGORIES": "Manage Categories"
     },
     "MOBILE": {
       "DASHBOARD": "Home",
+      "MAP": "Map",
       "ALL": "Complaints",
       "ASSIGN": "Assign",
       "CATEGORIES": "Categories"
     }
+  },
+  "MAP": {
+    "TITLE": "Complaint Map",
+    "SUBTITLE": "3D city view with status pins, clusters and popups.",
+    "COUNT": "{{count}} on map",
+    "LOADING": "Loading map…",
+    "CLUSTERS": "Clusters",
+    "NO_TOKEN_TITLE": "Mapbox token required",
+    "NO_TOKEN_BODY": "Add your free Mapbox access token to enable the 3D map. Create a token, then paste it into:",
+    "GET_TOKEN": "Get Mapbox token"
   },
   "STATUS": {
     "ALL": "All",

@@ -48,6 +48,14 @@
         </a>
         <a
           class="nav-link nn-side-link"
+          routerLink="/map"
+          routerLinkActive="active"
+        >
+          <i class="bi bi-geo-alt-fill"></i
+          >{{ "APP.SIDEBAR.MAP" | translate }}
+        </a>
+        <a
+          class="nav-link nn-side-link"
           routerLink="/complaints/all"
           routerLinkActive="active"
         >
@@ -91,6 +99,10 @@
     <a routerLink="/dashboard" routerLinkActive="active">
       <i class="bi bi-speedometer2"></i
       ><span>{{ "APP.MOBILE.DASHBOARD" | translate }}</span>
+    </a>
+    <a routerLink="/map" routerLinkActive="active">
+      <i class="bi bi-geo-alt-fill"></i
+      ><span>{{ "APP.MOBILE.MAP" | translate }}</span>
     </a>
     <a routerLink="/complaints/all" routerLinkActive="active">
       <i class="bi bi-card-list"></i
